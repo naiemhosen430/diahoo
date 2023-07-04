@@ -1,0 +1,59 @@
+<%- include('portals/header') %>
+
+
+
+<section class="p-0">
+    <h1 class="d-flex bg-danger py-2 px-4">
+        <span class="col-3 archivo d-block text-light text-bolder fs-1">diahoo</span>
+        <span class="col-9 d-lg-block d-none pt-2 px-3 oswald text-info fs-4 fs-lg-2">A Social Media Platform. It Offer You To Emjoy A Better Life</span>
+    </h1>
+</section>
+<div class="shadow rounded col-lg-8 col-md-10 col-11 m-auto p-4 m-4 mt-0 yt-0">
+    <p class="text-success text-bolder dosis fs-6 dancing text-center p-2">Experience a seamless social platform that connects people, fosters authenticity, and empowers growth for today and tomorrow. Welcome to Diahoo!</p>
+    <div class="col-lg-7 col-md-9 col-12 m-auto">
+            <h1 class="text-light text-center pb-4 text-bolder"><span class="text-info rubik fs-3">Create An Account</span><h1>
+            <form action="/registerpost" method="post">
+                <div class="py-2">
+                    <label class="d-block text-bolder fs-lg-4 fs-5 oswald text-light p-2" for="username">Write your fullname</label>
+                    <input class="d-block bordernone fs-lg-4 fs-6 w-100 text-bolder text-light py-lg-2 py-2 px-lg-4 px-md-3 px-3" required id="fullname" value="<%= allinfo.usrinputedemailorname %>" name="fullname" type="text" placeholder="Full name....">
+                </div>
+                <div class="py-2">
+                    <div class="" id="phon">
+                        <label class="d-block text-bolder fs-lg-4 fs-5 oswald text-light p-2" for="username">Write your phone or email</label>
+                        <input class="d-block bordernone fs-lg-4 fs-6 w-100 text-bolder text-light py-lg-2 py-2 px-lg-4 px-md-3 px-3" required value="<%= allinfo.usrinputedemailorphone %>" name="phone" type="text" placeholder="Phone or email....">
+                    </div>
+                    <p class="text-info fs-6"><%= allinfo.alredyachavemsg %></p>
+                </div>
+                <div class="py-2">
+                    <label class="d-block text-bolder fs-lg-4 fs-5 oswald text-light p-2" for="password">Write your password</label>
+                    <input class="d-block bordernone fs-lg-4 fs-6 w-100 text-bolder text-light py-lg-2 py-2 px-lg-4 px-md-3 px-3" required value="<%= allinfo.usrinputedemailorpass %>" name="password" type="password" placeholder="Password....">
+                </div>
+                <div class="py-2">
+                    <label class="d-block text-bolder fs-lg-4 fs-5 oswald text-light p-2" for="password">Re-write your password</label>
+                    <input class="d-block bordernone fs-lg-4 fs-6 w-100 text-bolder text-light py-lg-2 py-2 px-lg-4 px-md-3 px-3" required value="<%= allinfo.usrinputedemailorpass %>" type="password" placeholder="Password....">
+                </div>
+                <div class="py-4 text-center">
+                    <input class="py-2 fs-lg-4 fs-5 registerbtn shadow px-4 text-bolder text-light bg-danger" type="submit" value="Register">
+                </div>
+                <div class="py-4 text-light fs-6 text-center">
+                    Already have an account?<a href="/login"> Log in now!</a>
+                </div>
+            </form>
+        </div>
+</div>
+
+
+
+
+
+<script>
+    function showemail () {
+        mail.style.display = "block"
+        phon.style.display = "none"
+    }
+    function showphone () {
+        mail.style.display = "none"
+        phon.style.display = "block"
+    }
+
+</script>

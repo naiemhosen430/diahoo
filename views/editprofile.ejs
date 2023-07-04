@@ -1,0 +1,115 @@
+<%- include('portals/header') %>
+<a class="text-bolder text-center text-dark py-2 px-4 fs-2 bg-light" href="/">Back to home</a>
+<div class="p-4">
+
+    <form class="desnot" id="fiestpbx" action="/editprofile/<%= userobj.userid %>" method="post" enctype="multipart/form-data">
+        <h1 class="text-bolder text-center text-light p-2">Upload your profile picture</h1>
+        <input class="d-none" type="file" onchange="prevwprofile()" name="profilebtnin" id="profilebtnin">
+        <div class="cusround bg-danger col-lg-4 col-12 m-auto">
+            <img class="w-100" id="profilephotodis" src="assets/images/profilephoto/<%= userforedit.profilephoto %>" alt="">
+            <span class="pointer text-center fs-1 py-5 m-auto d-block bg-danger text-light" onclick="clickprofileimage()">Edit</span>
+        </div>
+        <BUTton class="text-info bg-dark my-5 py-2 px-4 registerbtn m-auto d-block shadow rounded">Save Profile photo</BUTton>
+    </form>
+
+    <div class="dpcs p-4 shadow d-flex justify-content-center rounded col-lg-8 col-11 m-auto">
+        <div class="bg-dark p-4 shadow rounded d-lg-flex justify-content-center">
+            <form class="desnot" id="coverpbx" action="/editcover/<%= userobj.userid %>" method="post" enctype="multipart/form-data">
+                <h1 class="text-bolder text-center text-light p-2">Upload your cover picture</h1>
+                <input class="d-none" type="file" onchange="prevwcover()" name="coverphoto" id="coverbtnin">
+                <div>
+                    <div class="bg-danger coversty">
+                        <img class="w-100" id="coverphotodis" src="assets/images/profilephoto/<%= userforedit.coverphoto %>" alt="">
+                        <span class="pointer px-4 py-2 bg-light text-dark rounded border" onclick="clickcoverimage()" id="coverextra">Edit</span>
+                    </div>
+                </div>
+                <BUTton class="text-info bg-dark my-4 shadow rounded">Save cover photo</BUTton>
+            </form>
+
+            </div>
+        </div>
+    <form class="desnot" id="allinfobx" action="/editprofiletext/<%= userobj.userid %>" method="post">
+        <div class="d-inline-block">
+            <h4 class="text-dark"><input class="rounded bg-dark px-3 border text-light py-1 w-100" type="text" name="name" value="<%= userforedit.fullname %>"></h4>
+            <p class="text-dark fs-5 text-bolder"><textarea class="w-100 bg-dark border text-light py- px-3" name="about" id="" cols="30" rows="3" placeholder="write ur tittle...."><%= userforedit.tittle %></textarea></p>
+        </div>
+        <div class="p-2 my-3 d-lg-flex justify-content-center">
+            <div class="d-inline-block">
+                <label class="text-light d-block py-1 fs-5" for="hometwon">Home Twon</label>
+                <input class="py-1 px-3 bg-dark text-info border " id="hometwon" type="text" name="hometwon" value="<%= userforedit.hometwon %>">
+            </div>
+            <div class="d-inline-block">
+                <label class="text-light d-block py-1 fs-5" for="homecity">Home City</label>
+                <input class="py-1 px-3 bg-dark text-info border " id="homecity" type="text" name="homecity" value="<%= userforedit.homecity %>">
+            </div>
+            <div class="d-inline-block">
+                <label class="text-light d-block py-1 fs-5" for="birthday">Birthday/month/year</label>
+                <input class="py-1 px-3 bg-dark text-info border " id="birthday" type="date" name="birthday" value="<%= userforedit.birthday %>">
+            </div>
+            <div class="d-inline-block">
+                <label class="text-light d-block py-1 fs-5" for="phone">Phone Number</label>
+                <input class="py-1 px-3 bg-dark text-info border " id="phone" type="text" name="phone" value="<%= userforedit.phone %>">
+            </div>
+            <div class="d-inline-block">
+                <label class="text-light d-block py-1 fs-5" for="email">Email</label>
+                <input class="py-1 px-3 bg-dark text-info border " id="email" type="text" name="email" value="<%= userforedit.email %>">
+            </div>
+            <div class="d-inline-block">
+                <label class="text-light d-block py-1 fs-5" for="age">Age</label>
+                <input class="py-1 px-3 bg-dark text-info border " id="age" type="number" name="age" value="<%= userforedit.age %>">
+            </div>
+
+        </div>
+        <div class="text-center">
+            <button class="py-2 px-4 text-light bg-danger">Save</button>
+        </div>
+    </form>
+</div>
+
+
+<script>
+    const pcimg = document.getElementById('profilephotodis').getAttribute('src')
+    const ccimg = document.getElementById('coverphotodis').getAttribute('src')
+    if (pcimg == 'assets/images/profilephoto/') {
+        document.getElementById('fiestpbx').style.display= 'block'
+    } else if (ccimg == 'assets/images/profilephoto/') {
+        document.getElementById('coverpbx').style.display= 'block'
+    } else {
+        document.getElementById('allinfobx').style.display= 'block'
+    }
+
+
+    function clickcoverimage() {
+        coverbtnin.click();
+    }
+    function clickprofileimage() {
+        profilebtnin.click();
+    }
+
+
+    function prevwcover() {
+        const file = coverbtnin.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.addEventListener('load', () => {
+                coverphotodis.src = reader.result;
+            });
+            reader.readAsDataURL(file);
+        } else {
+            coverphotodis.src = "";
+        }
+    }
+
+    function prevwprofile() {
+        const file = profilebtnin.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.addEventListener('load', () => {
+                profilephotodis.src = reader.result;
+            });
+            reader.readAsDataURL(file);
+        } else {
+            profilephotodis.src = "";
+        }
+    }
+</script>

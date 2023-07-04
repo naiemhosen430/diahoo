@@ -1,0 +1,20 @@
+<%- include('portals/header') %>
+
+<section>
+    <a class="text-bolder text-center text-light bg-danger py-2 px-4 col-5 m-auto d-block text-decoration-none sticky-top top-2" href="/">Go to home</a>
+    <div class="col-lg-8 col-12 text-center m-auto">
+        <% if (activeUsers.length == 0) { %>
+            <h1 class="text-bolder text-center text-light px-4 py-5">Sorry There is no active user</h1>
+        <% } else { %>
+            <% for (let aci=0; aci < activeUsers.length; aci++) { %>
+                <a class="text-decoration-none" href="/chat/<%- activeUsers[aci]._id %>/<%- myid %>">
+                    <div style=" width: 150px;" class="bg-danger d-inline-block m-2 rounded shadow p-2">
+                        <h6 class="text-info"><%- activeUsers[aci].fullname %></h6>
+                        <img style="height: 100px; width: 100px; border-radius: 100px;" class="d-block m-auto" src="/assets/images/profilephoto/<%- activeUsers[aci].profilephoto %>" alt="">
+                        <h6 class="text-light my-2 fs-6"><span class="px-1"><%- activeUsers[aci].age %></span><span class="px-1"><%- activeUsers[aci].gender %></span></h6>
+                    </div>
+                </a>
+            <% } %>
+        <% } %>
+    </div>
+</section>

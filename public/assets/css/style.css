@@ -1,0 +1,112 @@
+.desnot{
+  display: none;
+}
+.pointer{
+  cursor: pointer;
+}
+
+.cusround{
+  height: 150px;
+  width: 150px;
+  border-radius: 100px;
+  overflow: hidden;
+  z-index: 10000;
+}
+
+.coversty{
+  overflow: hidden;
+  height: 250px;
+}
+
+
+.pponpost{
+  width: 40px;
+  height: 40px;
+  border-radius: 100px;
+}
+
+
+.imageofpost{
+  max-height: 500px;
+  overflow: hidden;
+}
+
+
+
+.cusbstyle{
+  border-radius: 100px;
+}
+
+.cuspostbox{
+  padding: 100px 0;
+  cursor: pointer;
+  text-align: center;
+}
+
+
+#dopost{
+  display: none;
+}
+
+.cmtimg {
+  width: 30px;
+  height: 30px;
+  border-radius: 100px;
+}
+.textdnone{
+  text-decoration: none;
+}
+
+
+
+
+
+.bordernone{
+  border-radius: 50px;
+  border-right: 1px solid  rgb(91, 19, 19);
+  border-bottom: 1px solid  rgb(91, 19, 19);
+  background-color: rgb(91, 19, 19);
+  margin: 5px 0;
+}
+.registerbtn{
+  background-color: coral;
+  color: white ;
+  border-radius: 20px;
+  border: none;
+  transition: .5s ease-in-out;
+}
+.registerbtn:hover{
+  background-color: rgb(255, 255, 255);
+  color: rgb(85, 78, 78) ;
+}
+
+.oswald{
+  font-family: 'Oswald', sans-serif;
+}
+
+
+.dosis{
+  font-family: 'Dosis', sans-serif;
+}
+
+.dancing{
+  font-family: 'Dancing Script', cursive;
+}
+.archivo{
+  font-family: 'Archivo Black', sans-serif;
+  font-weight: bolder;
+}
+
+
+.rubik{
+  font-family: 'Rubik Puddles', cursive;
+}
+
+.oswald{
+  font-family: 'Oswald', sans-serif;
+}
+
+.hoverr:hover{
+  background-color: rgb(142, 142, 199);
+  transition: .5s ease-in-out;
+}

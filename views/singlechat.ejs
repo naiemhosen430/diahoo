@@ -1,0 +1,166 @@
+<%- include('portals/header') %>
+
+<section style="height: 95%; overflow: hidden;">
+  <div class="col-lg-8 m-auto col-12 shadow d-flex flex-column flex-grow-1 overflow-auto vh-100">
+    <div class="p-4 bg-danger">
+      <h2 class="text-bolder text-center text-light">Here will be ur recent chat. working for this feature</h2>
+    </div>
+    <div class="bg-danger px-lg-4 px-4 sticky-top">
+      <div class="d-flex justify-content-between align-items-center">
+        <div class="col-1">
+          <a href="/#chat">
+            <i class="bi fs-4 text-light bi-arrow-left"></i>
+          </a>
+        </div>
+        <div class="col-8 pt-1 d-flex">
+          <img style="width: 30px; height: 30px; border-radius: 100px;" src="/assets/images/profilephoto/<%- myFriend.profilephoto %>" alt="">
+          <div class="">
+            <h4 class="text-light t6ext-bolder ps-2"><%- myFriend.fullname %></h4>
+            <h6 class="text-bolder px-2 text-info">
+              <% if (myFriend.online_status == 1) { %>
+                online
+              <% } else if (myFriend.online_status == 0) { %>
+                offline
+              <% } %>
+            </h6>
+          </div>
+        </div>
+        <div class="col-3 pt-1 d-flex justify-content-center">
+          <i class="bi p-4 py-2 text-light bi-video"></i>
+          <i class="bi p-4 py-2 text-light bi-person-circle"></i>
+        </div>
+      </div>
+    </div>
+    <div class="flex-grow-1 mb-4 overflow-auto d-flex flex-column-reverse" style="height: 90vh;">
+      <div class="">
+        <div id="my-message" class="px-1 py-2">
+        </div>
+      </div>
+    </div>
+    <div class="col-12 m-auto fixed-bottom">
+          <div class="send-box col-12 m-auto d-flex justify-content-center">
+              <input style="border: 2px solid black;" class="col-lg-10 col-9 py-2 text-light px-4 bg-dark rounded" type="text" id="mstContent" name="mstContent" onkeyup="showbutton(), handleKeyUp(event)" placeholder="Type your message....">
+              <input class="d-none" type="text" value="<%- messageInfo._id %>" id="msgid" name="msgid">
+              <input class="d-none" type="text" onk value="<%- mySelf._id %>" id="myyid" name="myyid">
+              <button style="border: 2px solid black; display: none;" class="py-2 col-lg-2 col-3 px-4 bg-danger text-bolder text-light text-center" id="btnsend" onclick="sendMessage('<%- messageInfo._id %>','<%- mySelf._id %>')">Send</button>
+          </div>
+    </div>
+    <div class="p-1"></div>
+  </div>
+</section>
+
+<script>
+
+function handleKeyUp(event) {
+  if (event.keyCode === 13) {
+    event.preventDefault();
+    document.getElementById('btnsend').click();
+  }
+}
+
+
+const flvalue = document.getElementById('mstContent').value
+if (flvalue == '' || undefined || null) {
+  document.getElementById('btnsend').style.display = "none"
+} else {
+  document.getElementById('btnsend').style.display = "block"
+}
+function showbutton() {
+const flvalue = document.getElementById('mstContent').value
+if (flvalue == '' || undefined || null) {
+  document.getElementById('btnsend').style.display = "none"
+} else {
+  document.getElementById('btnsend').style.display = "block"
+}
+}
+</script>
+
+
+
+<script src="/socket.io/socket.io.js?v=12345"></script>
+
+
+<script>
+  
+  let socket = io.connect(window.location.origin);
+  const myId = '<%- mySelf._id %>'
+  socket.emit('myId', myId);
+  const msgid = document.getElementById('msgid').value;
+  const ourIds = { msgid };
+  socket.emit('userIds', ourIds);
+
+  function sendMessage(messageID, myidForChat) {
+    const mstContent = document.getElementById('mstContent').value;
+    const messageObject = {
+      messageID,
+      myidForChat,
+      mstContent
+    };
+    socket.emit('messagesend', messageObject);
+
+    document.getElementById('mstContent').value = '';
+    document.getElementById('mstContent').focus();
+  }
+
+  socket.on('message', (ourChatDynamic) => {
+    const sendHtml = document.getElementById('my-message');
+
+    if (ourChatDynamic.messages) {
+      for (let msgi = 0; msgi < ourChatDynamic.messages.length; msgi++) {
+        const msgmaindiv = document.createElement('div');
+        const subMsgmaindiv = document.createElement('div');
+        const h5 = document.createElement('h5');
+        const span = document.createElement('span');
+
+        h5.textContent = ourChatDynamic.messages[msgi].mstContent;
+        span.setAttribute('class', 'text-muted');
+        const myyid = document.getElementById('myyid').value;
+        if (ourChatDynamic.messages[msgi].ownerId == myyid) {
+          msgmaindiv.setAttribute('style', 'text-align: right;');
+          subMsgmaindiv.setAttribute('class', 'd-inline-block bg-dark pb-0 py-1 px-3');
+          subMsgmaindiv.setAttribute('style', 'border-radius: 20px;');
+        } else {
+          msgmaindiv.setAttribute('style', 'text-align: left;');
+          subMsgmaindiv.setAttribute('class', 'd-inline-block bg-danger pb-0 py-1 px-3');
+          subMsgmaindiv.setAttribute('style', 'border-radius: 20px;');
+        }
+        msgmaindiv.setAttribute('class', 'myfriend-message m-2 text-info');
+        msgmaindiv.appendChild(subMsgmaindiv);
+        subMsgmaindiv.appendChild(h5).appendChild(span);
+
+        sendHtml.appendChild(msgmaindiv);
+    }
+    } else if (ourChatDynamic) {
+      const msgmaindiv = document.createElement('div');
+        const subMsgmaindiv = document.createElement('div');
+        const h5 = document.createElement('h5');
+        const span = document.createElement('span');
+
+        h5.textContent = ourChatDynamic.mstContent;
+        span.setAttribute('class', 'text-muted');
+        const myyid = document.getElementById('myyid').value;
+        if (ourChatDynamic.ownerId == myyid) {
+          msgmaindiv.setAttribute('style', 'text-align: right;');
+          subMsgmaindiv.setAttribute('class', 'd-inline-block bg-dark pb-0 py-1 px-3');
+          subMsgmaindiv.setAttribute('style', 'border-radius: 20px;');
+        } else {
+          msgmaindiv.setAttribute('style', 'text-align: left;');
+          subMsgmaindiv.setAttribute('class', 'd-inline-block bg-danger pb-0 py-1 px-3');
+          subMsgmaindiv.setAttribute('style', 'border-radius: 20px;');
+        }
+        msgmaindiv.setAttribute('class', 'myfriend-message m-2 text-info');
+        msgmaindiv.appendChild(subMsgmaindiv);
+        subMsgmaindiv.appendChild(h5).appendChild(span);
+
+        sendHtml.appendChild(msgmaindiv);
+    }
+
+
+
+
+})
+
+
+
+
+</script>

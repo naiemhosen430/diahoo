@@ -1,0 +1,52 @@
+<%- include('header') %>
+<section style="overflow: hidden;" class="bg-dark sticky-top py-2 px-lg-4">
+    <div class="d-flex d-block d-lg-none px-1 w-100 d-md-none">
+        <div class="col-5">
+            <a style="text-decoration: none;;" class="col-3 archivo px-3" href="/">
+                <span class="text-bolder text-light pointer fs-1 col-3">diahoo</span>
+            </a>
+        </div>
+        <div class="col-6">
+            <div class="cusbstyle pointer col-12 col-lg-5 m-auto d-block mr-2 mt-2 px-2 fs-6 bg-danger text-info" id="showpostelement" onclick="showpostelement()">Post Something....</div>
+        </div>
+    </div>
+    <div class="d-flex w-100 justify-content-center">
+        <a style="text-decoration: none;;" class="col-lg-3 col-md-3 d-lg-block d-md-block d-none archivo px-2" href="/">
+            <span class="text-bolder text-light pointer fs-1 col-3">diahoo</span>
+        </a>
+        <ul class="nav d-flex justify-content-lg-center justify-content-lg-center mt-lg-3 mt-md-3 mt-1 col-lg-6 col-md-6 col-10">
+            <li class="nav-item pointer" onclick="homefunt()">
+                <a href="/">
+                    <i class="bi p-lg-3 p-1 px-lg-5 px-lg-3 px-3 pb-2 fs-lg-4 fs-5 text-light bi-house-door-fill"></i>
+                </a>
+            </li>
+            <li class="nav-item pointer" onclick="profilefunt()">
+                <i class="bi p-lg-3 p-1 px-lg-5 px-lg-3 px-3 pb-2 fs-lg-4 fs-5 text-light bi-person-circle"></i>
+            </li>
+            <li class="nav-item pointer" onclick="friendfunt(), fatchsenduserids('<%= myself.friendrequests %>'), fatchmyfriendids('<%= myself.friends %>')">
+                <i class="bi p-lg-3 p-1 px-lg-5 px-lg-3 px-3 pb-2 fs-lg-4 fs-5 text-light bi-people-fill"></i>
+            </li>
+            <li class="nav-item pointer" onclick="messagefunt(), myChatList('<%= myself._id %>')">
+                <a href="#chat">
+                    <i class="bi p-lg-3 p-1 px-lg-5 px-lg-3 px-3 pb-2 fs-lg-4 fs-5 text-light bi-chat-dots-fill"></i>
+                </a>
+            </li>
+            <li class="nav-item pointer" onclick="settingfunt()">
+                <i class="bi p-lg-3 p-1 px-lg-5 px-lg-3 px-3 pb-2 fs-lg-4 fs-5 text-light bi-gear-fill"></i>
+            </li>
+
+        </ul>
+        <ul class="nav mt-lg-3 mt-md-3 mt-1 col-2">
+            <li class="nav-item pointer" onclick="searchfunt()">
+                <i class="bi bg-none p-lg-3 p-1 px-lg-5 px-4 pb-2 fs-lg-4 fs-5 text-light bi-search"></i>
+            </li>
+        </ul>
+    </div>
+</section>
+<script src="/views/portals/main.js"></script>
+<script src="/socket.io/socket.io.js"></script>
+<script>
+        let socket = io()
+        const myId = '<%= myself._id %>'
+        socket.emit('myId', myId);
+</script>

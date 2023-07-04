@@ -1,0 +1,740 @@
+<%- include('portals/header') %>
+<%- include('portals/manu') %>
+
+
+
+<section class="col-12 p-2 col-lg-5 px-4 bg-danger m-auto" id="dopost">
+    <form action="/post" method="post" enctype="multipart/form-data">
+        <h3 class="text-info p-2">Write post content</h3>
+        <div class="py-2">
+            <textarea class="w-100 h-25 rounded bg-dark text-light fs-5 p-2" name="postcontent" id="postcontent" cols="30" rows="2" placeholder="Start writting"></textarea>
+            <input type="text" class="d-none" value="<%= myself.fullname %>" id="postownername" name="postownername">
+            <input type="text" class="d-none" value="<%= myself.profilephoto %>" id="postownerpicture" name="postownerpicture">
+            <input type="text" class="d-none" value="<%= myself._id %>" id="postownerid" name="postownerid">
+        </div>
+        <div class="py-2">
+            <input class="d-none" type="file" name="postimageor" onchange="openpostimageupp()" id="postimgup">
+            <img class="w-100" src="" alt="" id="prevewimgpost">
+            <div class="cuspostbox fs-4 text-info bg-dark" onclick="clickpostimginputimage()" id="openpostupimg">Add image</div>
+        </div>
+        <input class="text-light bg-primary w-100 border rounded py-1 px-4" type="submit" onclick="hidepostelement()" value="Post">
+    </form>
+</section>
+
+
+<section class="" id="allthing">
+    <a class="px-4 py-2 bg-danger text-light text-decoration-none text-bolder text-center d-block col--lg-5 col-12 m-auto fs-4 rounded" href="/explormore/<%= myself._id %>">Talk to rendom people</a>
+    <div class="text-light" id="home">
+
+        <div class="cusbstyle col-12 col-lg-5 m-auto d-lg-block d-md-block d-none py-1 px-5 fs-4 bg-dark text-info" id="showpostelement" onclick="showpostelement()">Post Something....</div>
+        <div class="col-12 col-lg-5 px-4 bg-black m-auto">
+
+            <% if (allpost.length == 0) {%>
+                <h1 class="text-info text-bolder text-center">Sorry there is no post</h1>
+            <%} else {%>
+                <% for (let i=0; i < allpost.length; i++) {%>
+                    <div class="py-4">
+                        <div class="d-flex justify-content-center">
+                            <div class="col-11 d-flex"">
+                                <a class="textdnone" href="/profile/<%= allpost[i].postownerid %>">
+                                    <img class="pponpost" src="assets\images\profilephoto\<%= allpost[i].postownerpicture %>" alt="">
+                                </a>
+                                <div>
+                                    <a class="textdnone" href="/profile/<%= allpost[i].postownerid %>">
+                                        <h5 class="text-light px-2"><%= allpost[i].postownername %></h5>
+                                    </a>
+                                        <span class="text-info fs-6 d-block"><%= allpost[i].postedtime %></span>
+                                </div>
+                            </div>
+                            <div class="col-1">
+                                <i class="bi pointer fs-lg-4 fs-5 text-light bi-three-dots"></i>
+                            </div>
+                        </div>
+                        <div>
+                            <div>
+                                <p class="text-info"><%= allpost[i].postcontent %></p>
+                            </div>
+                            <div class="imageofpost">
+                                <img class="w-100" src="assets\images\post\<%= allpost[i].picture %>" alt="">
+                            </div>
+                        </div>
+                        <div class="d-flex mx-2 p-4 justify-content-center">
+                            <div class="p-1 px-2 like">
+                                <h5 class="text-bolder text-center text-light" id="likecounter-<%= allpost[i]._id %>"><%= allpost[i].like.length  %></h5>
+                                <input class="desnot" type="text" value="<%= allpost[i].like.length  %>" id="likedcountval-<%= allpost[i]._id %>" name="likedcountval-<%= allpost[i]._id %>">
+                                <input class="d-none" type="text" value="<%= myself._id %>" name="likeduserid-<%= allpost[i]._id %>" id="likeduserid-<%= allpost[i]._id %>">
+                                <input class="d-none" type="text" value="<%= myself.fullname %>" name="likedusername-<%= allpost[i]._id %>" id="likedusername-<%= allpost[i]._id %>">
+                                <input class="d-none" type="text" value="<%= myself.profilephoto %>" name="likeduserphoto-<%= allpost[i]._id %>" id="likeduserphoto-<%= allpost[i]._id %>">
+                                <input class="d-none" type="text" value="<%= allpost[i]._id %>" name="postid-<%= allpost[i]._id %>" id="postid-<%= allpost[i]._id %>">
+                                
+                                <% if (allpost[i].like.length === 0) { %>
+                                    <div style="display: block;" class="" id="firstlike-<%= allpost[i]._id %>" onclick="likesend('<%= allpost[i]._id %>')">
+                                        <i class="bi pointer px-lg-2 px-0 col-5 py-lg-2 py-1 rounded fs-lg-4 fs-6 text-light bi-star">
+                                            <span class="px-2">Like</span>
+                                        </i>
+                                    </div>
+                                    <div class="" id="dislikebtnone-<%= allpost[i]._id %>" onclick="dislikesend('<%= allpost[i]._id %>')" style="display: none;">
+                                        <i class="bi pointer px-lg-2 px-0 col-5 py-lg-2 py-1 rounded fs-lg-4 fs-6 text-light bi-star-fill">
+                                            <span class="px-2">Liked</span>
+                                        </i>
+                                    </div>
+                                    <% } else { %>
+                                        <% let likedByCurrentUser = false; %>
+                                        <% for (let j = 0; j < allpost[i].like.length; j++) { %>
+                                            <% const likeObj = allpost[i].like[j]; %>
+                                            <% if (likeObj.likeduserid == myself._id) { %>
+                                            <% likedByCurrentUser = true; %>
+                                            <% break; %>
+                                        <% } %>
+                                        <% } %>
+                                        <% if (likedByCurrentUser) { %>
+                                            <div style="display: block;" class="" id="dislikebtn-<%= allpost[i]._id %>" onclick="dislikesendone('<%= allpost[i]._id %>')" >
+                                                <i class="bi pointer px-lg-2 px-0 col-5 py-lg-2 py-1 rounded fs-lg-4 fs-6 text-light bi-star-fill">
+                                                    <span class="px-2">Liked</span>
+                                                </i>
+                                            </div>
+                                            <div style="display: none;" class="" id="firstlikeotwo-<%= allpost[i]._id %>" onclick="likesendone('<%= allpost[i]._id %>')">
+                                                <i class="bi pointer px-lg-2 px-0 col-5 py-lg-2 py-1 rounded fs-lg-4 fs-6 text-light bi-star">
+                                                    <span class="px-2">Like</span>
+                                                </i>
+                                            </div>
+                                        <% } else { %>
+                                            <div class="" id="likebtn-<%= allpost[i]._id %>" onclick="likesendtwo('<%= allpost[i]._id %>')" style="display: block;">
+                                                <i class="bi pointer px-lg-2 px-0 col-5 py-lg-2 py-1 rounded fs-lg-4 fs-6 text-light bi-star">
+                                                    <span class="px-2">Like</span>
+                                                </i>
+                                            </div>
+                                            <div class="" id="dislikebtnthree-<%= allpost[i]._id %>" onclick="dislikesendtwo('<%= allpost[i]._id %>')" style="display: none;">
+                                                <i class="bi pointer px-lg-2 px-0 col-5 py-lg-2 py-1 rounded fs-lg-4 fs-6 text-light bi-star-fill">
+                                                    <span class="px-2">Liked</span>
+                                                </i>
+                                            </div>
+                                        <% } %>
+                                    <% } %>
+                                        
+                                </div>
+                                <div class="p-1 mx-2 px-2">
+                                    <h5 class="text-bolder text-center text-light" id="likecounter-<%= allpost[i]._id %>"><%= allpost[i].comment.length  %></h5>
+                                    <div class="bg-black d-inline-block py-0 px-0" onclick="showhidecbox('<%= allpost[i]._id %>')">
+                                        <i class="bi pointer px-lg-2 px-0 w-50 col-5 py-lg-2 py-1 rounded fs-lg-4 fs-6 text-light bi-chat-square"><span class="px-2">Comment</span></i>
+                                    </div>
+                                </div>
+
+                                </div>
+                                <div class="w-100 d-flex bg-dark">
+                                <input style="border: none;" class="rounded w-75 shadow text-info bg-dark px-lg-4 px-2 py-2 fs-5" required type="text" value="" onkeyup="showbtn('<%= allpost[i]._id %>')" name="commenttext-<%= allpost[i]._id %>" id="commenttext-<%= allpost[i]._id %>" placeholder="Write your comment....">
+                                <button style="border: none; display: none;" class="py-2 px-lg-4 px-2 rounded text-light w-25 bg-primary fs-5" id="cmntbtn-<%= allpost[i]._id %>" onclick="docomment('<%= allpost[i]._id %>')">Send</button>
+                                </div>
+                                <div style="display: none;" class="bg-dark p-3" id="commentbox-<%= allpost[i]._id %>">
+                                <% for (let c=0; c < allpost[i].comment.length; c++) { %>
+                                <div class="">
+                                    <div class="d-flex py-2">
+                                        <div class="cmtimg" >
+                                            <img style="border-radius: 100px;" class="w-100 h-100" src="\assets\images\profilephoto\<%= allpost[i].comment[c].likeduserphoto %>" alt="">
+                                        </div>
+                                        <span class="text-info px-2"><%= allpost[i].comment[c].likedusername %></span>
+                                    </div>
+                                    <h6 class="text-light p-2"><%= allpost[i].comment[c].commenttexttext %></h6>
+                                </div>
+                                <% } %>
+                        </div>
+                    </div>
+                <%}%>
+            <%}%>
+        </div>
+    </div>
+    <div class="text-light desnot" id="profile">
+        <div class="">
+            <div>
+                <div style="height: 150px;" class="bg-danger coversty">
+                    <img class="w-100" src="\assets\images\profilephoto\<%= myself.coverphoto %>" alt="">
+                </div>
+            </div>
+            <div class="shadow bg-none d-flex justify-content-center rounded col-lg-8 col-12 m-auto">
+                <div class="bg-none shadow rounded text-center d-lg-flex justify-lg-content-center">
+                    <div style="border-radius: 100px; height: 120px; width: 120px; margin-top: -50px; border: 1px solid gray;" class="m-auto text-center">
+                        <img style="border-radius: 100px; height: 100%; width: 100%;" class="d-block" src="\assets\images\profilephoto\<%= myself.profilephoto %>" alt="">
+                    </div>
+                    <div class="col-lg-7 col-12 px-lg-4 px-2">
+                        <h1 class="text-light"><%= myself.fullname %></h1>
+                        <p class="text-info fs-5 text-bolder"><%= myself.tittle %></p>
+                        <input class="d-none" type="text" value="<%= myself._id %>" name="myidofmine" id="myidofmine">
+                    </div>
+                </div>
+            </div>
+
+            <div class="p-2 my-3 d-lg-flex justify-content-center">
+                <span class="rounded d-block bg-dark py-2 px-4 mx-2 text-light"><span class="d-block mr-4 text-info">Home town</span><%= myself.hometwon %></span>
+                <span class="rounded d-block bg-dark py-2 px-4 mx-2 text-light"><span class="d-block mr-4 text-info">Home city</span><%= myself.homecity %></span>
+                <span class="rounded d-block bg-dark py-2 px-4 mx-2 text-light"><span class="d-block mr-4 text-info">Birthday</span><%= myself.birthday %></span>
+                <span class="rounded d-block bg-dark py-2 px-4 mx-2 text-light"><span class="d-block mr-4 text-info">Age</span><%= myself.age %></span>
+                <span class="rounded d-block bg-dark py-2 px-4 mx-2 text-light"><span class="d-block mr-4 text-info">Phone number</span><%= myself.phone %></span>
+                <span class="rounded d-block bg-dark py-2 px-4 mx-2 text-light"><span class="d-block mr-4 text-info">Email address</span><%= myself.email %></span>
+            </div>
+        </div>
+        <div class="d-flex justify-content-center p-2">
+            <div class="col-lg-4 col-0 mx-2">
+
+            </div>
+            <div class="col-lg-5 col-12">
+                <% if (mypost.length===0) {%>
+                    <h1 class="text-info text-bolder text-center">Sorry there is no post</h1>
+                <%} else {%>
+                    <% for (let i=0; i < mypost.length; i++) {%>
+                        <div class="py-4">
+                            <div class="d-flex justify-content-center">
+                                <div class="col-11 d-flex"">
+                                    <a class="textdnone" href="/profile/<%= mypost[i].postownerid %>">
+                                        <img class="pponpost" src="assets\images\profilephoto\<%= mypost[i].postownerpicture %>" alt="">
+                                    </a>
+                                    <div>
+                                        <a class="textdnone" href="/profile/<%= mypost[i].postownerid %>">
+                                            <h5 class="text-light px-2"><%= mypost[i].postownername %></h5>
+                                        </a>
+                                            <span class="text-info fs-6 d-block"><%= mypost[i].postedtime %></span>
+                                    </div>
+                                </div>
+                                <div class="col-1">
+                                    <i class="bi pointer fs-lg-4 fs-5 text-light bi-three-dots"></i>
+                                </div>
+                            </div>
+                            <div>
+                                <div>
+                                    <p class="text-info"><%= mypost[i].postcontent %></p>
+                                </div>
+                                <div class="imageofpost">
+                                    <img class="w-100" src="assets\images\post\<%= mypost[i].picture %>" alt="">
+                                </div>
+                            </div>
+                            <div class="d-flex mx-2 p-4 justify-content-center">
+                                <div class="p-1 px-2 like">
+                                    <h5 class="text-bolder text-center text-light" id="likecounter-<%= mypost[i]._id %>"><%= mypost[i].like.length  %></h5>
+                                    <input class="desnot" type="text" value="<%= mypost[i].like.length  %>" id="likedcountval-<%= mypost[i]._id %>" name="likedcountval-<%= mypost[i]._id %>">
+                                    <input class="d-none" type="text" value="<%= myself._id %>" name="likeduserid-<%= mypost[i]._id %>" id="likeduserid-<%= mypost[i]._id %>">
+                                    <input class="d-none" type="text" value="<%= myself.fullname %>" name="likedusername-<%= mypost[i]._id %>" id="likedusername-<%= mypost[i]._id %>">
+                                    <input class="d-none" type="text" value="<%= myself.profilephoto %>" name="likeduserphoto-<%= mypost[i]._id %>" id="likeduserphoto-<%= mypost[i]._id %>">
+                                    <input class="d-none" type="text" value="<%= mypost[i]._id %>" name="postid-<%= mypost[i]._id %>" id="postid-<%= mypost[i]._id %>">
+                                        
+                                </div>
+                                <div class="p-1 mx-2 px-2">
+                                    <h5 class="text-bolder text-center text-light" id="likecounter-<%= mypost[i]._id %>"><%= mypost[i].comment.length  %></h5>
+                                    <div class="bg-black d-inline-block py-0 px-0" onclick="showhidecbox('<%= mypost[i]._id %>')">
+                                        <i class="bi pointer px-lg-2 px-2 w-50 col-5 py-lg-2 py-1 rounded fs-lg-4 fs-5 text-light bi-chat-square"><span class="px-2">Comment</span></i>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                            <div class="w-100 d-flex bg-dark">
+                                <input class="border rounded w-75 text-info bg-dark px-4 py-2 fs-5" type="text" name="commenttext-<%= mypost[i]._id %>" id="commenttext-<%= mypost[i]._id %>" placeholder="Write your comment....">
+                                <button class="py-2 px-4 rounded border text-light w-25 bg-primary fs-5" onclick="docomment('<%= mypost[i]._id %>')">Send</button>
+                            </div>
+                            <div style="display: none;" class="bg-dark p-3" id="commentbox-<%= mypost[i]._id %>">
+                                <% for (let c=0; c < mypost[i].comment.length; c++) { %>
+                                <div class="">
+                                    <div class="d-flex py-2">
+                                        <div class="cmtimg" >
+                                            <img style="border-radius: 100px;" class="w-100 h-100" src="\assets\images\profilephoto\<%= mypost[i].comment[c][0].likeduserphoto %>" alt="">
+                                        </div>
+                                        <span class="text-info px-2"><%= mypost[i].comment[c][0].likedusername %></span>
+                                    </div>
+                                    <h6 class="text-light p-2"><%= mypost[i].comment[c][0].commenttexttext %></h6>
+                                </div>
+                                <% } %>
+                            </div>
+                        </div>
+                    <%}%>
+                <%}%>
+            </div>
+        </div>
+    </div>
+    <div class="text-light desnot" id="friends">
+        <div>
+            <ul class="nav m-2 mx-4">
+                <li class="text-bolder nav-item pointer p-1 px-4 bg-primary rounded text-light" onclick="showfriendreq()">Friend Request</li>
+                <li class="text-bolder nav-item pointer mx-3 p-1 px-4 bg-danger text-light" onclick="showallfriens()">My Friend</li>
+            </ul>
+        </div>
+        <div class="" id="friendreqsts" >
+            <div style="background-color: rgb(51, 49, 49);" class="col-lg-5 col-11 py-2 px-4 mx-4 d-inline-block">
+                <h2 class="text-light text-bolder">Loading....</h2>
+            </div>
+        </div>
+        <div class="desnot" id="allfriend" >
+            <div style="background-color: rgb(51, 49, 49);" class="col-lg-5 col-11 py-2 px-4 mx-4 d-inline-block">
+                <h2 class="text-light text-bolder">Loading....</h2>
+            </div>
+        </div>
+    </div>
+    <div class="text-light desnot" id="message">
+        <div class="mymessagelist" id="mymessagelist">
+            <div class="my-5 py-5"><h1 class="text-light text-center text-bolder">Loading....</h1></div>
+        </div>
+    </div>
+    <div class="text-light desnot" id="seting">
+        <div class=" col-lg-8 col-12">
+            <div class="list-group">
+                <a style="border: none;" onclick="profilefunt()" class="list-group-item bg-dark pointer my-1 hoverr text-info text-bolder">Profile</a>
+                <a style="border: none;" href="/editprofile" class="list-group-item my-1 bg-dark hoverr text-info text-bolder">Edit Profile</a>
+                <a style="border: none;" onclick="friendfunt(), fatchsenduserids('<%= myself.friendrequests %>'), fatchmyfriendids('<%= myself.friends %>')" class="list-group-item pointer my-1 hoverr bg-dark text-info text-bolder">Friends</a>
+                <a style="border: none;" onclick="messagefunt(), myChatList('<%= myself._id %>')" class="list-group-item my-1 pointer hoverr bg-dark text-info text-bolder">Message</a>
+                <a style="border: none;" onclick="homefunt()" class="list-group-item my-1 pointer hoverr bg-dark text-info text-bolder">Feed</a>
+                <a style="border: none;" href="#" class="list-group-item my-1 hoverr bg-dark text-info text-bolder">Help</a>
+                <a style="border: none;" href="#" class="list-group-item my-1 hoverr bg-dark text-info text-bolder">Report</a>
+                <a style="border: none;" href="#" class="list-group-item my-1 hoverr bg-dark text-info text-bolder">About</a>
+                <a style="border: none;" href="/logout" class="list-group-item my-1 bg-dark hoverr text-info text-bolder">Log out</a>
+              </div>
+        </div>
+    </div>
+    <div class="text-light desnot" id="search">search</div>
+</section>
+
+
+
+<script>
+
+    function showbtn(showbtnid) {
+        const commenttextt = document.getElementById(`commenttext-${showbtnid}`).value
+        if (commenttextt) {
+            document.getElementById(`cmntbtn-${showbtnid}`).style.display = 'block'
+        } else {
+            document.getElementById(`cmntbtn-${showbtnid}`).style.display = 'none'
+        }
+
+    }
+
+
+    function confirmreqandsendids(myfriendidforconfirmreqq) {
+        const myidforconfirmreq = document.getElementById('myidofmine').value
+
+        const dataforconfirmreq = {
+            myfriendidforconfirmreqq,
+            myidforconfirmreq
+        }
+        const xhr = new XMLHttpRequest();
+        const urld = '/confirmfriendreq';
+
+
+
+        xhr.open('POST', urld, true)
+        xhr.setRequestHeader('Content-Type', 'application/json')
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4) {
+            if (xhr.status === 200) {
+
+            } else {
+                console.log("Error disliking the post:", xhr.status);
+            }
+            }
+        };
+
+        const jsondatadddd = JSON.stringify(dataforconfirmreq)
+        xhr.send(jsondatadddd)
+    }
+
+    function deletereqandsendids(myfriendidfordeletereqq) {
+        const myidforconfirmreqqq = document.getElementById('myidofmine').value
+
+        const datafordeletereq = {
+            myfriendidfordeletereqq,
+            myidforconfirmreqqq
+        }
+        const xhr = new XMLHttpRequest();
+        const urldde = '/deletefriendreq';
+
+
+
+        xhr.open('POST', urldde, true)
+        xhr.setRequestHeader('Content-Type', 'application/json')
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4) {
+            if (xhr.status === 200) {
+
+            } else {
+                console.log("Error disliking the post:", xhr.status);
+            }
+            }
+        };
+
+        const jsondataddele = JSON.stringify(datafordeletereq)
+        xhr.send(jsondataddele)
+    }
+
+    function showhidecbox(hid) {
+        const showclas = document.getElementById(`commentbox-${hid}`).style.display
+        if (showclas == "") {
+            document.getElementById(`commentbox-${hid}`).style.display = 'none';
+        } else if (showclas == "none") {
+            document.getElementById(`commentbox-${hid}`).style.display = '';
+        }
+        
+    }
+
+    function showallfriens() {
+        document.getElementById('friendreqsts').style.display= 'none'
+        document.getElementById('allfriend').style.display= 'block'
+    }
+    function showfriendreq() {
+        document.getElementById('friendreqsts').style.display= 'block'
+        document.getElementById('allfriend').style.display= 'none'
+    }
+    
+
+
+    function homefunt() {
+        home.style.display="block";
+        profile.style.display="none";
+        friends.style.display="none";
+        message.style.display="none";
+        seting.style.display="none";
+        search.style.display="none";
+    }
+    function profilefunt() {
+        home.style.display="none";
+        profile.style.display="block";
+        friends.style.display="none";
+        message.style.display="none";
+        seting.style.display="none";
+        search.style.display="none";
+    }
+    function friendfunt(friendrequestsall) {
+        home.style.display="none";
+        profile.style.display="none";
+        friends.style.display="block";
+        message.style.display="none";
+        seting.style.display="none";
+        search.style.display="none";
+    }
+    function fatchsenduserids (fatchsenduserids) {
+        const userIdss = fatchsenduserids;
+        
+        axios.get('/getsendrequserofme', {
+        params: {
+            userIds: userIdss
+        }
+        })
+        .then(response => {
+            document.getElementById('friendreqsts').innerHTML= response.data
+        })
+        .catch(error => {
+            console.error('Error occurred while fetching user data:', error);
+        });
+    }
+    function fatchmyfriendids (fatchmyfriendsids) {
+        const userIdsss = fatchmyfriendsids;
+        
+        axios.get('/getmyallfriends', {
+        params: {
+            friendsIds: userIdsss
+        }
+        })
+        .then(response => {
+            document.getElementById('allfriend').innerHTML= response.data
+        })
+        .catch(error => {
+            console.error('Error occurred while fetching user data:', error);
+        });
+    }
+
+    function myChatList(myIdForChat) {
+        axios.get('/mychatlist', {
+            params: {
+                myIdForChat
+            }
+        })
+        .then(response => {
+            document.getElementById('mymessagelist').innerHTML= response.data
+        })
+        .catch(error => {
+            console.error('Error occurred while fetching user data:', error);
+        })
+    }
+
+    function messagefunt() {
+        home.style.display="none";
+        profile.style.display="none";
+        friends.style.display="none";
+        message.style.display="block";
+        seting.style.display="none";
+        search.style.display="none";
+    }
+    function settingfunt() {
+        home.style.display="none";
+        profile.style.display="none";
+        friends.style.display="none";
+        message.style.display="none";
+        seting.style.display="block";
+        search.style.display="none";
+    }
+    function searchfunt() {
+        home.style.display="none";
+        profile.style.display="none";
+        friends.style.display="none";
+        message.style.display="none";
+        seting.style.display="none";
+        search.style.display="block";
+    }
+    function clickpostimginputimage() {
+        postimgup.click();
+    }
+
+    function openpostimageupp() {
+        const filee = postimgup.files[0];
+        if (filee) {
+            const reader = new FileReader();
+            reader.addEventListener('load', () => {
+                prevewimgpost.src = reader.result;
+            });
+            reader.readAsDataURL(filee);
+        } else {
+            prevewimgpost.src = "";
+        }
+        openpostupimg.style.display= "none"
+    }
+
+    function showpostelement () {
+        dopost.style.display= "block"
+        allthing.style.display= "none"
+    }
+
+    function hidepostelement() {
+        dopost.style.display= "none"
+        allthing.style.display= "block"
+    }
+
+
+
+
+
+    function likesend (postidddd) {
+        const likeduserid= document.getElementById(`likeduserid-${postidddd}`).value
+        const likedusername= document.getElementById(`likedusername-${postidddd}`).value
+        const likeduserphoto= document.getElementById(`likeduserphoto-${postidddd}`).value
+        const postid= postidddd
+        const data = {
+            likeduserid,
+            likedusername,
+            likeduserphoto,
+            postid
+        }
+        const xhr = new XMLHttpRequest();
+        const url = '/like';
+
+
+
+        xhr.open('POST', url, true)
+        xhr.setRequestHeader('Content-Type', 'application/json')
+
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+            if (xhr.status === 200) {
+                // Request completed successfully
+                document.getElementById(`firstlike-${postidddd}`).style.display = 'none';
+                document.getElementById(`dislikebtnone-${postidddd}`).style.display = 'block';
+            } else {
+                // Handle error cases if needed
+            }
+            }
+        };
+
+        const jsondata = JSON.stringify(data)
+        xhr.send(jsondata)
+}
+
+
+    function likesendone (postidddd) {
+        const likeduserid= document.getElementById(`likeduserid-${postidddd}`).value
+        const likedusername= document.getElementById(`likedusername-${postidddd}`).value
+        const likeduserphoto= document.getElementById(`likeduserphoto-${postidddd}`).value
+        const postid= postidddd
+        const data = {
+            likeduserid,
+            likedusername,
+            likeduserphoto,
+            postid
+        }
+        const xhr = new XMLHttpRequest();
+        const url = '/like';
+
+
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+            if (xhr.status === 200) {
+                // Request completed successfully
+                document.getElementById(`dislikebtn-${postidddd}`).style.display= "block"
+                document.getElementById(`firstlikeotwo-${postidddd}`).style.display= "none"
+            } else {
+                // Handle error cases if needed
+            }
+            }
+        };
+
+
+        xhr.open('POST', url, true)
+        xhr.setRequestHeader('Content-Type', 'application/json')
+        const jsondata = JSON.stringify(data)
+        xhr.send(jsondata)
+
+    }
+
+
+    function likesendtwo (postidddd) {
+        const likeduserid= document.getElementById(`likeduserid-${postidddd}`).value
+        const likedusername= document.getElementById(`likedusername-${postidddd}`).value
+        const likeduserphoto= document.getElementById(`likeduserphoto-${postidddd}`).value
+        const postid= postidddd
+        const data = {
+            likeduserid,
+            likedusername,
+            likeduserphoto,
+            postid
+        }
+        const xhr = new XMLHttpRequest();
+        const url = '/like';
+
+
+
+        xhr.open('POST', url, true)
+        xhr.setRequestHeader('Content-Type', 'application/json')
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+            if (xhr.status === 200) {
+                // Request completed successfully
+                document.getElementById(`likebtn-${postidddd}`).style.display= "none"
+                document.getElementById(`dislikebtnthree-${postidddd}`).style.display= "block"
+            } else {
+                // Handle error cases if needed
+            }
+            }
+        };
+        const jsondata = JSON.stringify(data)
+        xhr.send(jsondata)
+
+    }
+
+
+
+
+
+
+
+
+    function dislikesend(postiddd) {
+        const likeduseridn= document.getElementById(`likeduserid-${postiddd}`).value
+            const postidn= postiddd
+            const data = {
+                likeduseridn,
+                postidn
+            }
+            const xhr = new XMLHttpRequest();
+            const urld = '/dislike';
+
+
+
+            xhr.open('POST', urld, true)
+            xhr.setRequestHeader('Content-Type', 'application/json')
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                if (xhr.status === 200) {
+                    // Request completed successfully
+                    document.getElementById(`firstlike-${postiddd}`).style.display= "block"
+                    document.getElementById(`dislikebtnone-${postiddd}`).style.display= "none"
+                } else {
+                    // Handle error cases if needed
+                }
+                }
+            };
+            const jsondatad = JSON.stringify(data)
+            xhr.send(jsondatad)
+
+        }
+        
+    function dislikesendone(postiddd) {
+    const likeduseridn= document.getElementById(`likeduserid-${postiddd}`).value
+        const postidn= postiddd
+        const data = {
+            likeduseridn,
+            postidn
+        }
+        const xhr = new XMLHttpRequest();
+        const urld = '/dislike';
+
+
+
+        xhr.open('POST', urld, true)
+        xhr.setRequestHeader('Content-Type', 'application/json')
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+            if (xhr.status === 200) {
+                // Request completed successfully
+                document.getElementById(`dislikebtn-${postiddd}`).style.display= "none"
+                document.getElementById(`firstlikeotwo-${postiddd}`).style.display= "block"
+            } else {
+                // Handle error cases if needed
+            }
+            }
+        };
+        const jsondatad = JSON.stringify(data)
+        xhr.send(jsondatad)
+
+    }
+    
+    function dislikesendtwo(postiddd) {
+    const likeduseridn= document.getElementById(`likeduserid-${postiddd}`).value
+        const postidn= postiddd
+        const data = {
+            likeduseridn,
+            postidn
+        }
+        const xhr = new XMLHttpRequest();
+        const urld = '/dislike';
+
+
+
+        xhr.open('POST', urld, true)
+        xhr.setRequestHeader('Content-Type', 'application/json')
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+            if (xhr.status === 200) {
+                // Request completed successfully
+                document.getElementById(`likebtn-${postiddd}`).style.display= "block"
+                document.getElementById(`dislikebtnthree-${postiddd}`).style.display= "none"
+            } else {
+                // Handle error cases if needed
+            }
+            }
+        };
+        const jsondatad = JSON.stringify(data)
+        xhr.send(jsondatad)
+
+    }
+    
+
+    function docomment(postidd) {
+        const likeduseridc= document.getElementById(`likeduserid-${postidd}`).value
+        const likedusernamec= document.getElementById(`likedusername-${postidd}`).value
+        const likeduserphotoc= document.getElementById(`likeduserphoto-${postidd}`).value
+        const commenttexttext= document.getElementById(`commenttext-${postidd}`).value
+        const postidc= postidd
+        const datac = {
+            likeduseridc,
+            likedusernamec,
+            likeduserphotoc,
+            postidc,
+            commenttexttext
+        }
+        const xhr = new XMLHttpRequest();
+        const urlc = '/comment';
+        xhr.open('POST', urlc, true)
+        xhr.setRequestHeader('Content-Type', 'application/json')
+
+        const jsondatadc = JSON.stringify(datac)
+        xhr.send(jsondatadc)
+        document.getElementById(`commenttext-${postidd}`).value = ""
+    }
+    
+</script>
+
+<script src="/socket.io/socket.io.js"></script>
+<script>
+        let socket = io()
+</script>
