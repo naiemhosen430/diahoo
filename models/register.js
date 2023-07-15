@@ -69,6 +69,9 @@ const resshema = new mongoose.Schema({
         "minLength": 0,
         "maxLength": 100,
         "default": ""
+      },
+      verificationCode: {
+        "type": "Number"
       }
 })
 

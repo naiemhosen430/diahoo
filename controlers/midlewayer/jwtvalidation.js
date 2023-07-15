@@ -20,7 +20,7 @@ const cheaklogin = async (req,res, next) => {
 
 const stoplogin = (req,res, next) => {
     try {
-        const tokenn = req.signedCookies.quickshop;
+        const tokenn = req.signedCookies.whyneedthename;
         if (!tokenn) {
             next()
         } else {

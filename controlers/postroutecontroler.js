@@ -7,6 +7,7 @@ const postmodel = require("../models/post");
 const likemodel = require("../models/like");
 const likedmodel = require("../models/like");
 const chatmodel = require("../models/chat");
+const sendEmail = require("./utils/sendEmail");
 require('dotenv').config()
 
 const registercontrolerpost = async (req, res, next) => {
@@ -441,12 +442,62 @@ const editprofilepiccontroler = async (req,res) => {
     }
 }
 
+const resetpasswordControlerPost = async (req,res) => {
+    try {
+        const existedUser = await resmodel.findOne({phone:req.body.username})
+        if (existedUser) {
+            const randomNumber = Math.floor(Math.random() * 1000000);
+            const successfull= await sendEmail(req.body.username, randomNumber)
+            await resmodel.updateOne({phone:req.body.username},{
+                $set: {
+                    verificationCode : randomNumber
+                }
+            })
+            if (successfull.statusCode === 200) {
+                req.session.reqresetuserid = existedUser._id
+                req.session.successmessage = 'Enter the veryfication code'
+            } else {
+                console.log('something wents wrong')
+            }
+        } else {
+            req.session.failedmessage = 'User not found please create and account'
+        }
+        res.redirect('/resetpasswordpage')
+    } catch (error) {
+        console.log(error)
+    }
+}
 
+
+const setnewpasswordControler = async (req,res) => {
+    try {
+        const {verifycode, newpassword} = req.body
+        const reqUser = await resmodel.findOne({_id: req.params.id})
+        if (reqUser.verificationCode == verifycode) {
+            const newHasPassword = await bcrypt.hash(newpassword, 10)
+            await resmodel.updateOne({_id: req.params.id},{
+                $set: {
+                    password: newHasPassword
+                }
+            })
+            req.session.resetsuccessfully = 'password has changed'
+            res.redirect('/resetpasswordpage')
+        } else {
+            req.session.notresetsuccessfully = 'verification code not match!'
+            res.redirect('/resetpasswordpage')
+        }
+
+    } catch (error) {
+        console.log(error)
+    }
+}
 
 module.exports={
     getsendrequserofmecontroler,
+    setnewpasswordControler,
     getmyallfriendofmecontroler,
     cencelfriendrequestcontroler,
+    resetpasswordControlerPost,
     editprofilepiccontroler,
     registercontrolerpost,
     loginpostcontroler,
