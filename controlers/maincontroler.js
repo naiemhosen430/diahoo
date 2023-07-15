@@ -77,8 +77,23 @@ const exploremorecontroler = async (req, res) => {
   }
 };
 
+
+const resetpasswordControler = (req,res) => {
+  try {
+    const reqresetuserid = req.session.reqresetuserid || ''
+    const messsage = req.session.successmessage || req.session.failedmessage || req.session.resetsuccessfully || req.session.notresetsuccessfully || ''
+    console.log(messsage)
+    res.render('resetpassword', {messsage, reqresetuserid})
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+
+
 module.exports={
     logincontroler,
+    resetpasswordControler,
     registercontroler,
     editprofilecontroler,
     profilecontroler,

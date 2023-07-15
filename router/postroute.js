@@ -1,5 +1,22 @@
 const express = require('express')
-const { registercontrolerpost, loginpostcontroler, editprofilecontroler, postcontroler, likecontroler, dislikecontroler, commentcontroller, addfriendcontroler, cencelfriendrequestcontroler, confirmreqcontroler, deletereqcontroler, editcovercontroler, editprofilepiccontroler, editprofilecontrolerr } = require('../controlers/postroutecontroler')
+const { 
+  registercontrolerpost, 
+  loginpostcontroler, 
+  editprofilecontroler, 
+  postcontroler, 
+  likecontroler, 
+  dislikecontroler, 
+  commentcontroller, 
+  addfriendcontroler, 
+  cencelfriendrequestcontroler, 
+  confirmreqcontroler, 
+  deletereqcontroler, 
+  editcovercontroler, 
+  editprofilepiccontroler, 
+  editprofilecontrolerr, 
+  resetpasswordControlerPost, 
+  setnewpasswordControler
+} = require('../controlers/postroutecontroler')
 const upload = require('../controlers/uploadcontroler/pandcupload')
 const { uploadpostimage } = require('../controlers/uploadcontroler/postimageuploader')
 const { cheaklogin } = require('../controlers/midlewayer/jwtvalidation')
@@ -8,6 +25,8 @@ const postroute = express.Router()
 
 
 postroute.post('/registerpost', registercontrolerpost)
+postroute.post('/resetpassword', resetpasswordControlerPost)
+postroute.post('/setnewpassword/:id', setnewpasswordControler)
 postroute.post('/loginpost', loginpostcontroler)
 postroute.post('/like', cheaklogin, likecontroler)
 postroute.post('/dislike', cheaklogin, dislikecontroler)

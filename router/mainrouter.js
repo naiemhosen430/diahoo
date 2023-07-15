@@ -5,16 +5,18 @@ const {
     editprofilecontroler,
     profilecontroler,
     singleChatControler,
-    exploremorecontroler
+    exploremorecontroler,
+    resetpasswordControler,
 } = require('../controlers/maincontroler')
 const { cheaklogin, stoplogin } = require('../controlers/midlewayer/jwtvalidation')
-const { homecontroler, getsendrequserofmecontroler, getmyallfriendofmecontroler, mychatlistControler } = require('../controlers/postroutecontroler')
+const { homecontroler, getsendrequserofmecontroler, getmyallfriendofmecontroler, mychatlistControler, } = require('../controlers/postroutecontroler')
 const mainrouter = express.Router()
 
 require('dotenv').config()
 
 mainrouter.get('/', cheaklogin, homecontroler)
 mainrouter.get('/login', stoplogin, logincontroler)
+mainrouter.get('/resetpasswordpage', stoplogin, resetpasswordControler)
 mainrouter.get('/register', stoplogin, registercontroler)
 mainrouter.get('/editprofile/', cheaklogin, editprofilecontroler)
 mainrouter.get('/profile/:suid', cheaklogin, profilecontroler)

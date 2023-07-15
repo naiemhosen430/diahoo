@@ -17,7 +17,7 @@ const io = new Server(server);
 app.use(session({
   secret: process.env.sesionsicret,
   resave: false,
-  saveUninitialized: true
+  saveUninitialized: true,
 }));
 
 app.use(cookieParser(process.env.COOKIS_KEY));
