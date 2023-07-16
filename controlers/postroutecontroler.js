@@ -12,13 +12,13 @@ require('dotenv').config()
 
 const registercontrolerpost = async (req, res, next) => {
     try {
-        const invalidUser = await resmodel.findOne({phone: req.body.phone});
+        const invalidUser = await resmodel.findOne({phone: req.body.email});
         if (!invalidUser) {
             const haspasd = await bcrypt.hash(req.body.password, 10)
-            const hasphone = req.body.phone
+            const email = req.body.email
             const user = await new resmodel({
                 fullname: req.body.fullname,
-                phone: hasphone,
+                email: email,
                 password: haspasd
         
             })
@@ -37,7 +37,7 @@ const registercontrolerpost = async (req, res, next) => {
             res.redirect('/editprofile')
         } else {
             const alredyachavemsg = "This inputed value already had used !!";
-            const usrinputedemailorphone = req.body.phone;
+            const usrinputedemailorphone = req.body.email;
             const usrinputedemailorname = req.body.fullname;
             const usrinputedemailorpass = req.body.password;
             req.session.allinfo = {
@@ -59,7 +59,7 @@ const registercontrolerpost = async (req, res, next) => {
 const loginpostcontroler = async (req,res) => {
     try {
 
-        const validUser = await resmodel.findOne({ phone: req.body.username });
+        const validUser = await resmodel.findOne({ email: req.body.username });
         if (validUser) {
             const cheakpassword = await bcrypt.compare(req.body.password, validUser.password);
             if (cheakpassword == true) {

@@ -60,7 +60,7 @@ const resshema = new mongoose.Schema({
         "type": "number",
         "default": ""
       },
-      phone: {
+      email: {
         "type": "string",
         "default": ""
       },
