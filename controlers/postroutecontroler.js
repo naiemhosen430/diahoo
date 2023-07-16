@@ -446,8 +446,8 @@ const resetpasswordControlerPost = async (req,res) => {
     try {
         const existedUser = await resmodel.findOne({phone:req.body.username})
         if (existedUser) {
-            const randomNumber = Math.floor(Math.random() * 1000000);
-            const successfull= await sendEmail(req.body.username, randomNumber)
+            const randomNumber = Math.floor(Math.random() * 1000000000000000000000);
+            const successfull= await sendEmail(req.body.username, existedUser._id, randomNumber)
             await resmodel.updateOne({phone:req.body.username},{
                 $set: {
                     verificationCode : randomNumber
@@ -455,12 +455,12 @@ const resetpasswordControlerPost = async (req,res) => {
             })
             if (successfull.statusCode === 200) {
                 req.session.reqresetuserid = existedUser._id
-                req.session.successmessage = 'Enter the veryfication code'
+                req.session.successmessage = 'Password reset link has sent to your mail. Check and reset your password'
             } else {
                 console.log('something wents wrong')
             }
         } else {
-            req.session.failedmessage = 'User not found please create and account'
+            req.session.failedmessage = 'User not found please create an account'
         }
         res.redirect('/resetpasswordpage')
     } catch (error) {
@@ -471,22 +471,16 @@ const resetpasswordControlerPost = async (req,res) => {
 
 const setnewpasswordControler = async (req,res) => {
     try {
-        const {verifycode, newpassword} = req.body
-        const reqUser = await resmodel.findOne({_id: req.params.id})
-        if (reqUser.verificationCode == verifycode) {
-            const newHasPassword = await bcrypt.hash(newpassword, 10)
-            await resmodel.updateOne({_id: req.params.id},{
-                $set: {
-                    password: newHasPassword
-                }
-            })
-            req.session.resetsuccessfully = 'password has changed'
-            res.redirect('/resetpasswordpage')
-        } else {
-            req.session.notresetsuccessfully = 'verification code not match!'
-            res.redirect('/resetpasswordpage')
-        }
-
+        const newHasPassword = await bcrypt.hash(req.body.newpassword, 10)
+        console.log(req.params.id)
+        await resmodel.updateOne({_id: req.params.id},{
+            $set: {
+                password: newHasPassword,
+                verificationCode: 1111
+            }
+        })
+        req.session.resetsuccessfully = 'Password has changed'
+        res.redirect('/login')
     } catch (error) {
         console.log(error)
     }

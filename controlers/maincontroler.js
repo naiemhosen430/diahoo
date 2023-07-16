@@ -7,9 +7,11 @@ require('dotenv').config()
 const logincontroler = async (req,res) => {
     const allinfooflog = req.session.allinfooflog || "";
     const allinfooflogusername = req.session.allinfooflogusername || "";
+    const messageofsuc = req.session.resetsuccessfully || ''
+    delete req.session.resetsuccessfully;
     delete req.session.allinfooflog;
     delete req.session.allinfooflogusername;
-    res.render('login', {allinfooflog, allinfooflogusername})
+    res.render('login', {allinfooflog, allinfooflogusername, messageofsuc})
 }
 const registercontroler = async (req,res) => {
     const allinfo = req.session.allinfo || "";
@@ -81,18 +83,31 @@ const exploremorecontroler = async (req, res) => {
 const resetpasswordControler = (req,res) => {
   try {
     const reqresetuserid = req.session.reqresetuserid || ''
-    const messsage = req.session.successmessage || req.session.failedmessage || req.session.resetsuccessfully || req.session.notresetsuccessfully || ''
-    console.log(messsage)
+    const messsage = req.session.successmessage || req.session.failedmessage || ''
+    delete req.session.successmessage
+    delete req.session.failedmessage
     res.render('resetpassword', {messsage, reqresetuserid})
   } catch (error) {
     console.log(error)
   }
 }
 
+const setNewpasswordpageControler = async (req,res) => {
+  try {
+    const reqresetuseid = req.params.userid || ''
+    const reqresetusekey = req.params.key || ''
+    const myselfresetpasss = await resmodel.findOne({_id: reqresetuseid})
+    const verificationCode = myselfresetpasss.verificationCode || ''
+    res.render('setNewpasswordpage', {reqresetuseid, reqresetusekey, verificationCode})
+  } catch (error) {
+    console.log(error)
+  }
+}
 
 
 module.exports={
     logincontroler,
+    setNewpasswordpageControler,
     resetpasswordControler,
     registercontroler,
     editprofilecontroler,
