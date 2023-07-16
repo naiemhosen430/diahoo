@@ -7,6 +7,7 @@ const {
     singleChatControler,
     exploremorecontroler,
     resetpasswordControler,
+    setNewpasswordpageControler,
 } = require('../controlers/maincontroler')
 const { cheaklogin, stoplogin } = require('../controlers/midlewayer/jwtvalidation')
 const { homecontroler, getsendrequserofmecontroler, getmyallfriendofmecontroler, mychatlistControler, } = require('../controlers/postroutecontroler')
@@ -23,6 +24,9 @@ mainrouter.get('/profile/:suid', cheaklogin, profilecontroler)
 mainrouter.get('/singlechat', cheaklogin, singleChatControler)
 mainrouter.get('/explormore/:myidforren', cheaklogin, exploremorecontroler)
 
+
+// password reset
+mainrouter.get('/setNewpasswordpage/:userid/:key', setNewpasswordpageControler)
 
 
 //extra routes
