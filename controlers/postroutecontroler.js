@@ -12,7 +12,7 @@ require('dotenv').config()
 
 const registercontrolerpost = async (req, res, next) => {
     try {
-        const invalidUser = await resmodel.findOne({phone: req.body.email});
+        const invalidUser = await resmodel.findOne({email: req.body.email});
         if (!invalidUser) {
             const haspasd = await bcrypt.hash(req.body.password, 10)
             const email = req.body.email

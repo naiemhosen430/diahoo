@@ -1,8 +1,10 @@
 <%- include('portals/header') %>
-<a class="text-bolder text-center text-dark py-2 px-4 fs-2 bg-light" href="/">Back to home</a>
-<div class="p-4">
+<div class="">
+    <div style="background-color: rgb(174, 4, 4);" class="px-4 py-2">
+        <a style="text-decoration: none;" class="text-bolder text-center text-light py-1 px-4 fs-5 bg-danger" href="/">Back</a>
+    </div>
 
-    <form class="desnot" id="fiestpbx" action="/editprofile/<%= userobj.userid %>" method="post" enctype="multipart/form-data">
+    <form class="" id="fiestpbx" action="/editprofile/<%= userobj.userid %>" method="post" enctype="multipart/form-data">
         <h1 class="text-bolder text-center text-light p-2">Upload your profile picture</h1>
         <input class="d-none" type="file" onchange="prevwprofile()" name="profilebtnin" id="profilebtnin">
         <div class="cusround bg-danger col-lg-4 col-12 m-auto">
@@ -14,7 +16,7 @@
 
     <div class="dpcs p-4 shadow d-flex justify-content-center rounded col-lg-8 col-11 m-auto">
         <div class="bg-dark p-4 shadow rounded d-lg-flex justify-content-center">
-            <form class="desnot" id="coverpbx" action="/editcover/<%= userobj.userid %>" method="post" enctype="multipart/form-data">
+            <form class="" id="coverpbx" action="/editcover/<%= userobj.userid %>" method="post" enctype="multipart/form-data">
                 <h1 class="text-bolder text-center text-light p-2">Upload your cover picture</h1>
                 <input class="d-none" type="file" onchange="prevwcover()" name="coverphoto" id="coverbtnin">
                 <div>
@@ -28,35 +30,31 @@
 
             </div>
         </div>
-    <form class="desnot" id="allinfobx" action="/editprofiletext/<%= userobj.userid %>" method="post">
-        <div class="d-inline-block">
-            <h4 class="text-dark"><input class="rounded bg-dark px-3 border text-light py-1 w-100" type="text" name="name" value="<%= userforedit.fullname %>"></h4>
-            <p class="text-dark fs-5 text-bolder"><textarea class="w-100 bg-dark border text-light py- px-3" name="about" id="" cols="30" rows="3" placeholder="write ur tittle...."><%= userforedit.tittle %></textarea></p>
+    <form class="col-12 col-lg-6 m-auto" id="allinfobx" action="/editprofiletext/<%= userobj.userid %>" method="post">
+        <div class="d-block p-2">
+            <input class="rounded bg-dark w-100 d-block px-3 border text-light py-1 w-100" type="text" name="name" value="<%= userforedit.fullname %>">
+            <textarea class="w-100 bg-dark d-block w-100 border text-light py- px-3" name="about" id="" cols="30" rows="3" placeholder="write ur tittle...."><%= userforedit.tittle %></textarea>
         </div>
-        <div class="p-2 my-3 d-lg-flex justify-content-center">
-            <div class="d-inline-block">
+        <div class="p-2 my-3">
+            <div class="d-block">
                 <label class="text-light d-block py-1 fs-5" for="hometwon">Home Twon</label>
-                <input class="py-1 px-3 bg-dark text-info border " id="hometwon" type="text" name="hometwon" value="<%= userforedit.hometwon %>">
+                <input class="py-1 px-3 bg-dark d-block w-100 text-info border " id="hometwon" type="text" name="hometwon" value="<%= userforedit.hometwon %>">
             </div>
-            <div class="d-inline-block">
+            <div class="d-block">
                 <label class="text-light d-block py-1 fs-5" for="homecity">Home City</label>
-                <input class="py-1 px-3 bg-dark text-info border " id="homecity" type="text" name="homecity" value="<%= userforedit.homecity %>">
+                <input class="py-1 px-3 bg-dark d-block w-100 text-info border " id="homecity" type="text" name="homecity" value="<%= userforedit.homecity %>">
             </div>
-            <div class="d-inline-block">
+            <div class="d-block">
                 <label class="text-light d-block py-1 fs-5" for="birthday">Birthday/month/year</label>
-                <input class="py-1 px-3 bg-dark text-info border " id="birthday" type="date" name="birthday" value="<%= userforedit.birthday %>">
+                <input class="py-1 px-3 bg-dark d-block w-100 text-info border " id="birthday" type="date" name="birthday" value="<%= userforedit.birthday %>">
             </div>
-            <div class="d-inline-block">
-                <label class="text-light d-block py-1 fs-5" for="phone">Phone Number</label>
-                <input class="py-1 px-3 bg-dark text-info border " id="phone" type="text" name="phone" value="<%= userforedit.phone %>">
-            </div>
-            <div class="d-inline-block">
+            <div class="d-block">
                 <label class="text-light d-block py-1 fs-5" for="email">Email</label>
-                <input class="py-1 px-3 bg-dark text-info border " id="email" type="text" name="email" value="<%= userforedit.email %>">
+                <input class="py-1 px-3 bg-dark d-block w-100 text-info border " id="email" type="text" name="email" value="<%= userforedit.email %>">
             </div>
-            <div class="d-inline-block">
+            <div class="d-block">
                 <label class="text-light d-block py-1 fs-5" for="age">Age</label>
-                <input class="py-1 px-3 bg-dark text-info border " id="age" type="number" name="age" value="<%= userforedit.age %>">
+                <input class="py-1 px-3 bg-dark d-block w-100 text-info border " id="age" type="number" name="age" value="<%= userforedit.age %>">
             </div>
 
         </div>
