@@ -12,7 +12,7 @@ require('dotenv').config()
 
 const registercontrolerpost = async (req, res, next) => {
     try {
-        const invalidUser = await resmodel.findOne({phone: req.body.email});
+        const invalidUser = await resmodel.findOne({email: req.body.email});
         if (!invalidUser) {
             const haspasd = await bcrypt.hash(req.body.password, 10)
             const email = req.body.email
@@ -444,11 +444,11 @@ const editprofilepiccontroler = async (req,res) => {
 
 const resetpasswordControlerPost = async (req,res) => {
     try {
-        const existedUser = await resmodel.findOne({phone:req.body.username})
+        const existedUser = await resmodel.findOne({email:req.body.username})
         if (existedUser) {
             const randomNumber = Math.floor(Math.random() * 1000000000000000000000);
             const successfull= await sendEmail(req.body.username, existedUser._id, randomNumber)
-            await resmodel.updateOne({phone:req.body.username},{
+            await resmodel.updateOne({email:req.body.username},{
                 $set: {
                     verificationCode : randomNumber
                 }
