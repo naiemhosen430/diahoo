@@ -2,41 +2,101 @@
 
 
 
-<section class="p-0">
+<section class="p-0 header-animation">
     <h1 class="d-flex bg-danger py-2 px-4">
         <span class="col-3 archivo d-block text-light text-bolder fs-1">diahoo</span>
         <span class="col-9 d-lg-block d-none pt-2 px-3 oswald text-info fs-4 fs-lg-2">A Social Media Platform. It Offer You To Emjoy A Better Life</span>
     </h1>
 </section>
-<div class="shadow rounded col-lg-8 col-md-10 col-11 m-auto p-4 m-4 mt-0 yt-0">
-    <p class="text-success text-bolder dosis fs-6 dancing text-center p-2">Experience a seamless social platform that connects people, fosters authenticity, and empowers growth for today and tomorrow. Welcome to Diahoo!</p>
+<div class="bg-danger fs-5 text-center m-4">
+    <p class="text-info fs-6"><%= allinfo.alredyachavemsg %></p>
+</div>
+<div class="" id="mainbox">
+    <p class="p-animation text-success text-bolder dosis fs-6 dancing text-center p-2">Experience a seamless social platform that connects people, fosters authenticity, and empowers growth for today and tomorrow. Welcome to Diahoo!</p>
+    <div style="background-color: rgb(131, 19, 19);" class="col-11 my-5 animation-one m-auto rounded shadow col-lg-5">
+        <h2 class="text-light text-bolder text-center">
+            <h1 class="text-light animation-two text-bolde text-center">Welcome</h1>
+            <h3 class="text-light animation-three text-bolder">Hi...Do you have account on Diahoo?</h3>
+            <div class="text-center my-4">
+                <a class="d-lg-inline-block my-3 pointer text-decoration-none fs-3 p-2 px-5 bg-success rounded text-light text-bolder d-block w-lg-25" onclick="shownextboxone()">I am new</a>
+                <a class="d-lg-inline-block my-3 text-decoration-none fs-3 p-2 px-5 bg-success rounded text-light text-bolder d-block w-lg-25" href="/login">Yes I do</a>
+            </div>
+        </h2>
+    </div>
+</div>
+<div class="desnot" id="nextboxone">
+    <p class="p-animation text-success text-bolder dosis fs-6 dancing text-center p-2">Ops! You are missing something! harry up to enjoy a new social experience.</p>
+    <div style="background-color: rgb(131, 19, 19);" class="col-11 my-5 animation-one m-auto rounded shadow col-lg-5">
+        <h2 class="text-light text-bolder text-center">
+            <h1 class="text-light animation-two text-bolde text-center">Ok no matter</h1>
+            <h3 class="text-light animation-three text-bolder">Do you want to join Diahoo?</h3>
+            <div class="text-center my-4">
+                <a class="d-lg-inline-block my-3 pointer text-decoration-none fs-3 p-2 px-5 bg-success rounded text-light text-bolder d-block w-lg-25" onclick="showcreateacboxone()">Yes i want</a>
+                <a class="d-lg-inline-block my-3 text-decoration-none fs-3 p-2 px-5 bg-success pointer rounded text-light text-bolder d-block w-lg-25" onclick="byemessagebox()">No Thanks</a>
+            </div>
+        </h2>
+    </div>
+</div>
+<div class="desnot" id="byebox">
+    <div style="background-color: rgb(131, 19, 19);" class="col-11 my-5 animation-one m-auto rounded shadow col-lg-5">
+        <h2 class="text-light text-bolder text-center">
+            <h1 class="text-light animation-two text-bolde text-center">Ok Bye</h1>
+            <h3 class="text-light animation-three text-bolder">Do you want to exit Diahoo?</h3>
+            <div class="text-center my-4">
+                <a class="d-lg-inline-block my-3 text-decoration-none fs-3 p-2 px-5 bg-success pointer rounded text-light text-bolder d-block w-lg-25" href="https://www.google.com/">Yes</a>
+                <a class="d-lg-inline-block my-3 text-decoration-none fs-3 p-2 px-5 bg-success pointer rounded text-light text-bolder d-block w-lg-25" onclick="showmainbox()">No</a>
+            </div>
+        </h2>
+    </div>
+</div>
+<div class="shadow d rounded col-lg-8 col-md-10 col-11 m-auto p-4 m-4 mt-0 yt-0">
     <div class="col-lg-7 col-md-9 col-12 m-auto">
-            <h1 class="text-light text-center pb-4 text-bolder"><span class="text-info rubik fs-3">Create An Account</span><h1>
             <form action="/registerpost" method="post">
-                <div class="py-2">
-                    <label class="d-block text-bolder fs-lg-4 fs-5 oswald text-light p-2" for="username">Write your fullname</label>
-                    <input class="d-block bordernone fs-lg-4 fs-6 w-100 text-bolder text-light py-lg-2 py-2 px-lg-4 px-md-3 px-3" required id="fullname" value="<%= allinfo.usrinputedemailorname %>" name="fullname" type="text" placeholder="Full name....">
-                </div>
-                <div class="py-2">
-                    <div class="" id="phon">
-                        <label class="d-block text-bolder fs-lg-4 fs-5 oswald text-light p-2" for="username">Write your email</label>
-                        <input class="d-block bordernone fs-lg-4 fs-6 w-100 text-bolder text-light py-lg-2 py-2 px-lg-4 px-md-3 px-3" required value="<%= allinfo.usrinputedemailorphone %>" name="email" type="email" placeholder="Email....">
+                <div class="desnot" id="acboxone">
+                    <div style="background-color: rgb(131, 19, 19);" class=" my-5 animation-one m-auto rounded shadow">
+                        <div class="py-2">
+                            <label class="d-block text-bolder fs-lg-4 fs-5 oswald text-light p-2" for="username">What is your fullname?</label>
+                            <input class="d-block bordernone fs-lg-4 fs-6 w-100 text-bolder text-light py-lg-2 py-2 px-lg-4 px-md-3 px-3" required id="fullname" value="<%= allinfo.usrinputedemailorname %>" name="fullname" onkeyup="fullnamef()"  type="text" placeholder="Full name....">
+                        </div>
+                        <div class="text-center my-4">
+                            <a class="desnot my-3 pointer text-decoration-none fs-3 p-2 px-5 bg-success rounded text-light text-bolder w-lg-25" id="fullanmebtn" onclick="showmailbox()">Continue</a>
+                        </div>
+                        <div class="py-4 text-light fs-6 text-center">
+                            Already have an account?<a href="/login"> Log in now!</a>
+                        </div>
                     </div>
-                    <p class="text-info fs-6"><%= allinfo.alredyachavemsg %></p>
                 </div>
-                <div class="py-2">
-                    <label class="d-block text-bolder fs-lg-4 fs-5 oswald text-light p-2" for="password">Write your password</label>
-                    <input class="d-block bordernone fs-lg-4 fs-6 w-100 text-bolder text-light py-lg-2 py-2 px-lg-4 px-md-3 px-3" required value="<%= allinfo.usrinputedemailorpass %>" name="password" type="password" placeholder="Password....">
+                <div class="desnot" id="mailbox">
+                    <div style="background-color: rgb(131, 19, 19);" class=" my-5 animation-one m-auto rounded shadow">
+                        <div class="py-2">
+                            <div class="" id="phon">
+                                <label class="d-block text-bolder fs-lg-4 fs-5 oswald text-light p-2" for="username">What is your email?</label>
+                                <input class="d-block bordernone fs-lg-4 fs-6 w-100 text-bolder text-light py-lg-2 py-2 px-lg-4 px-md-3 px-3" required value="<%= allinfo.usrinputedemailorphone %>" name="email" id="emailtext" onkeyup="showemailbtn()" type="email" placeholder="Email....">
+                            </div>
+                        </div>
+                        <div class="text-center my-4">
+                            <a class="desnot my-3 pointer text-decoration-none fs-3 p-2 px-5 bg-success rounded text-light text-bolder w-lg-25" id="emailbtn" onclick="showpasswordbox()">Continue</a>
+                            <a class="d-lg-inline-block my-3 text-decoration-none fs-3 p-2 px-5 bg-danger pointer rounded text-light text-bolder d-block w-lg-25" onclick="showcreateacboxone()">Back</a>
+                        </div>
+                        <div class="py-4 text-light fs-6 text-center">
+                            Already have an account?<a href="/login"> Log in now!</a>
+                        </div>
+                    </div>
                 </div>
-                <div class="py-2">
-                    <label class="d-block text-bolder fs-lg-4 fs-5 oswald text-light p-2" for="password">Re-write your password</label>
-                    <input class="d-block bordernone fs-lg-4 fs-6 w-100 text-bolder text-light py-lg-2 py-2 px-lg-4 px-md-3 px-3" required value="<%= allinfo.usrinputedemailorpass %>" type="password" placeholder="Password....">
-                </div>
-                <div class="py-4 text-center">
-                    <input class="py-2 fs-lg-4 fs-5 registerbtn shadow px-4 text-bolder text-light bg-danger" type="submit" value="Register">
-                </div>
-                <div class="py-4 text-light fs-6 text-center">
-                    Already have an account?<a href="/login"> Log in now!</a>
+                <div class="desnot" id="passwordbox">
+                    <div style="background-color: rgb(131, 19, 19);" class=" my-5 animation-one m-auto rounded shadow">
+                        <div class="py-2">
+                            <label class="d-block text-bolder fs-lg-4 fs-5 oswald text-light p-2" for="password">Write a password</label>
+                            <input class="d-block bordernone fs-lg-4 fs-6 w-100 text-bolder text-light py-lg-2 py-2 px-lg-4 px-md-3 px-3" required value="<%= allinfo.usrinputedemailorpass %>" name="password" type="password" placeholder="Password....">
+                        </div>
+                        <div class="text-center my-4">
+                            <input class="text-decoration-none fs-3 p-2 px-5 bg-success pointer rounded text-light text-bolder d-inline-block w-lg-25" type="submit" value="Register">
+                            <a class="d-lg-inline-block my-3 text-decoration-none fs-3 p-2 px-5 bg-danger pointer rounded text-light text-bolder d-block w-100 m-auto w-lg-25" onclick="showmailbox()">Back</a>
+                        </div>
+                        <div class="py-4 text-light fs-6 text-center">
+                            Already have an account?<a href="/login"> Log in now!</a>
+                        </div>
+                    </div>
                 </div>
             </form>
         </div>
@@ -47,6 +107,70 @@
 
 
 <script>
+    function showemailbtn() {
+        const emailtext = document.getElementById('emailtext').value
+        if (emailtext == '') {
+            document.getElementById('emailbtn').style.display = 'none'
+        } else if (!emailtext == '') {
+            document.getElementById('emailbtn').style.display = 'block'
+        }
+    }
+    function fullnamef() {
+        const fullnametext = document.getElementById('fullname').value
+        if (fullnametext == '') {
+            document.getElementById('fullanmebtn').style.display = 'none'
+        } else if (!fullnametext == '') {
+            document.getElementById('fullanmebtn').style.display = 'block'
+        }
+    }
+    function byemessagebox() {
+        document.getElementById('mainbox').style.display = 'none'
+        document.getElementById('nextboxone').style.display = 'none'
+        document.getElementById('acboxone').style.display = 'none'
+        document.getElementById('mailbox').style.display = 'none'
+        document.getElementById('passwordbox').style.display = 'none'
+        document.getElementById('byebox').style.display = 'block'
+    }
+    function showmainbox() {
+        document.getElementById('mainbox').style.display = 'block'
+        document.getElementById('nextboxone').style.display = 'none'
+        document.getElementById('acboxone').style.display = 'none'
+        document.getElementById('mailbox').style.display = 'none'
+        document.getElementById('passwordbox').style.display = 'none'
+        document.getElementById('byebox').style.display = 'none'
+    }
+    function showpasswordbox() {
+        document.getElementById('mainbox').style.display = 'none'
+        document.getElementById('nextboxone').style.display = 'none'
+        document.getElementById('acboxone').style.display = 'none'
+        document.getElementById('mailbox').style.display = 'none'
+        document.getElementById('passwordbox').style.display = 'block'
+        document.getElementById('byebox').style.display = 'none'
+    }
+    function showmailbox() {
+        document.getElementById('mainbox').style.display = 'none'
+        document.getElementById('nextboxone').style.display = 'none'
+        document.getElementById('acboxone').style.display = 'none'
+        document.getElementById('mailbox').style.display = 'block'
+        document.getElementById('passwordbox').style.display = 'none'
+        document.getElementById('byebox').style.display = 'none'
+    }
+    function showcreateacboxone() {
+        document.getElementById('mainbox').style.display = 'none'
+        document.getElementById('nextboxone').style.display = 'none'
+        document.getElementById('acboxone').style.display = 'block'
+        document.getElementById('mailbox').style.display = 'none'
+        document.getElementById('passwordbox').style.display = 'none'
+        document.getElementById('byebox').style.display = 'none'
+    }
+    function shownextboxone() {
+        document.getElementById('mainbox').style.display = 'none'
+        document.getElementById('nextboxone').style.display = 'block'
+        document.getElementById('acboxone').style.display = 'none'
+        document.getElementById('mailbox').style.display = 'none'
+        document.getElementById('passwordbox').style.display = 'none'
+        document.getElementById('byebox').style.display = 'none'
+    }
     function showemail () {
         mail.style.display = "block"
         phon.style.display = "none"
