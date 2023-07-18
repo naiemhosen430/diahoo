@@ -1,113 +1,111 @@
 <%- include('portals/header') %>
 <%- include('portals/manu') %>
 
-<div class="text-light" id="profile">
-    <div class="p-4">
-        <div>
-            <div class="shadow coversty">
-                <img class="w-100" src="\assets\images\profilephoto\<%= selecteduser.coverphoto %>" alt="">
+<div class="">
+    <div>
+        <div style="height: 180px;" class="shadow bg-danger coverdefaltphoto coversty">
+            <img class="w-100" src="\assets\images\profilephoto\<%= selecteduser.coverphoto %>" alt="">
+        </div>
+    </div>
+    <div class="dpcs p-4 px-5 shadow d-flex justify-content-center item-center rounded col-lg-5 col-10 m-auto">
+        <div class="cusround bg-danger col-lg-4 col-12 ms-4">
+            <div style="border-radius: 100px; height: 100px;" class="profiledefaltphoto">
+                <img style="border-radius: 100px; height: 100px; width: 100px;" class="w-50 d-block m-auto " src="\assets\images\profilephoto\<%= selecteduser.profilephoto %>" alt="">
             </div>
         </div>
-        <div class="dpcs p-4 shadow d-flex justify-content-center rounded col-lg-8 col-11 m-auto">
-            <div class="btn-danger p-4 shadow text-center rounded d-lg-flex justify-content-lg-center">
-                <div class="cusround col-lg-4 col-12">
-                    <img class="w-50 d-block m-auto " src="\assets\images\profilephoto\<%= selecteduser.profilephoto %>" alt="">
-                </div>
-                <div class="col-lg-7 col-12 px-4">
-                    <h4 class="text-light"><%= selecteduser.fullname %></h4>
-                    <p class="text-info fs-5 text-bolder"><%= selecteduser.tittle %></p>
-                </div>
-            </div>
+        <div class="col-lg-7 col-12 pt-2 px-4">
+            <h4 class="text-light"><%= selecteduser.fullname %></h4>
+            <p class="text-info fs-5 text-bolder"><%= selecteduser.tittle %></p>
         </div>
-        <div class="p-2 my-3 d-flex justify-content-center">
+    </div>
+    <div class="p-2 my-3 d-flex justify-content-center">
 
-            <% if (String(selecteduser._id) == String(myself._id)) { %>
-                <a class="btn-primary mx-lg-4 mx-3 rounded text-decoration-none py-lg-2 py-1 px-lg-4 px-2 text-center m-auto" href="/#profile">Edit profile</a>
+        <% if (String(selecteduser._id) == String(myself._id)) { %>
+            <a class="btn-success bg-danger mx-lg-4 mx-3 rounded text-decoration-none text-light text-bolder py-lg-2 py-1 px-lg-4 px-2 text-center m-auto" href="/editprofile">Edit profile</a>
+        <% } else { %>
+
+
+            <% let alreadyismyfriend = false; %>
+            <% for (let jjf = 0; jjf < selecteduser.friends.length; jjf++) { %>
+                <% const likeObjj = selecteduser.friends[jjf][0]; %>
+                <% if (likeObjj == myself._id) { %>
+                <% alreadyismyfriend = true; %>
+                <% break; %>
+                <% } %>
+            <% } %>
+
+            <% if (alreadyismyfriend) { %>
+                <a class="btn-primary bg-primary mx-lg-4 mx-3 rounded text-decoration-none text-light text-bolder py-lg-2 py-1 px-lg-4 px-2 text-center m-auto" href="">Already Friend</a>
+                <a class="btn-danger bg-secondary mx-lg-4 mx-3 rounded text-decoration-none text-light text-bolder py-lg-2 py-1 px-lg-4 px-2 text-center m-auto" href="/chat/<%= selecteduser._id %>/<%= myself._id %>">Message</a>
             <% } else { %>
 
 
-                <% let alreadyismyfriend = false; %>
-                <% for (let jjf = 0; jjf < selecteduser.friends.length; jjf++) { %>
-                    <% const likeObjj = selecteduser.friends[jjf][0]; %>
-                    <% if (likeObjj == myself._id) { %>
-                    <% alreadyismyfriend = true; %>
-                    <% break; %>
-                    <% } %>
-                <% } %>
-
-                <% if (alreadyismyfriend) { %>
-                    <a class="btn-primary mx-lg-4 mx-3 rounded text-decoration-none py-lg-2 py-1 px-lg-4 px-2 text-center m-auto" href="">Already Friend</a>
-                    <a class="btn-danger mx-lg-4 mx-3 rounded text-decoration-none py-lg-2 py-1 px-lg-4 px-2 text-center m-auto" href="/chat/<%= selecteduser._id %>/<%= myself._id %>">Message</a>
+        
+                <% if (selecteduser.friendrequests.length == 0) { %>
+                    <a class="btn-secondary bg-primary mx-lg-4 mx-3 rounded text-decoration-none text-light text-bolder py-lg-2 py-1 px-lg-4 px-2 text-center m-auto" onclick="addfriend('<%= myself._id %>','<%= selecteduser._id %>')" href="">Add friend</a>
                 <% } else { %>
-
-
-            
-                    <% if (selecteduser.friendrequests.length == 0) { %>
-                        <a class="btn-secondary mx-lg-4 mx-3 rounded text-decoration-none py-lg-2 py-1 px-lg-4 px-2 text-center m-auto" onclick="addfriend('<%= myself._id %>','<%= selecteduser._id %>')" href="">Add friend</a>
-                    <% } else { %>
-                        
-                        <% let sendrequestByCurrentUser = false; %>
-                        <% for (let jj = 0; jj < selecteduser.friendrequests.length; jj++) { %>
-                            <% const likeObj = selecteduser.friendrequests[jj][0]; %>
-                            <% if (likeObj == myself._id) { %>
-                            <% sendrequestByCurrentUser = true; %>
-                            <% break; %>
-                            <% } %>
-                        <% } %>
-                        <% if (sendrequestByCurrentUser) { %>
-                            <a class="btn-secondary mx-lg-4 mx-3 rounded text-decoration-none py-lg-2 py-1 px-lg-4 px-2 text-center m-auto" onclick="cencelfriendreq('<%= myself._id %>','<%= selecteduser._id %>')" href="">Cencel friend request</a>
-                        <% } else { %>
-                            <a class="btn-secondary mx-lg-4 mx-3 rounded text-decoration-none py-lg-2 py-1 px-lg-4 px-2 text-center m-auto" onclick="addfriend('<%= myself._id %>','<%= selecteduser._id %>')" href="">Add friend</a>
+                    
+                    <% let sendrequestByCurrentUser = false; %>
+                    <% for (let jj = 0; jj < selecteduser.friendrequests.length; jj++) { %>
+                        <% const likeObj = selecteduser.friendrequests[jj][0]; %>
+                        <% if (likeObj == myself._id) { %>
+                        <% sendrequestByCurrentUser = true; %>
+                        <% break; %>
                         <% } %>
                     <% } %>
+                    <% if (sendrequestByCurrentUser) { %>
+                        <a class="btn-secondary bg-secondary mx-lg-4 mx-3 rounded text-decoration-none text-light text-bolder py-lg-2 py-1 px-lg-4 px-2 text-center m-auto" onclick="cencelfriendreq('<%= myself._id %>','<%= selecteduser._id %>')" href="">Cencel friend request</a>
+                    <% } else { %>
+                        <a class="btn-primary bg-primary mx-lg-4 mx-3 rounded text-decoration-none text-light text-bolder py-lg-2 py-1 px-lg-4 px-2 text-center m-auto" onclick="addfriend('<%= myself._id %>','<%= selecteduser._id %>')" href="">Add friend</a>
+                    <% } %>
                 <% } %>
-                <a class="btn-primary mx-lg-4 mx-3 rounded text-decoration-none py-lg-2 py-1 px-lg-4 px-2 text-center m-auto" href="">Reaport</a>
-                
             <% } %>
-        </div>
+            <a class="btn-danger bg-danger mx-lg-4 mx-3 rounded text-decoration-none py-lg-2 py-1 px-lg-4 px-2 text-center m-auto" href="">Reaport</a>
+            
+        <% } %>
     </div>
-    <div class="d-flex justify-content-center p-2">
-        <div class="col-4 mx-2">
+</div>
+<div class="d-flex justify-content-center p-2">
+    <div class="col-4 mx-2">
 
-        </div>
-        <div class="col-5 mx-2">
-            <% if (hispost.length===0) {%>
-                <h1 class="text-info text-bolder text-center">Sorry there is no post</h1>
-            <%} else {%>
-                <% for (let i=0; i < hispost.length; i++) {%>
-                    <div>
-                        <div class="d-flex justify-content-center">
-                            <div class="col-12 col-lg-6"">
-                                <img class="pponpost" src="\assets\images\profilephoto\<%= hispost[i].postownerpicture %>" alt="">
-                                <h5 class="text-light px-2"><%= hispost[i].postownername %>
-                                    <span class="text-info fs-6 d-block"><%= hispost[i].postedtime %></span>
-                                </h5>
-                            </div>
-                            <div class="col-1">
-                                <i class="bi pointer fs-lg-4 fs-5 text-light bi-three-dots"></i>
-                            </div>
+    </div>
+    <div style="background-color: rgb(26, 24, 24);" class="col-lg-6 p-2 col-6 m-auto mx-lg-2">
+        <% if (hispost.length===0) {%>
+            <h1 class="text-info text-bolder text-center">Sorry there is no post</h1>
+        <%} else {%>
+            <% for (let i=0; i < hispost.length; i++) {%>
+                <div class="w-100">
+                    <div class="d-flex justify-content-center">
+                        <div class="col-lg-11 d-flex">
+                            <img class="pponpost" src="\assets\images\profilephoto\<%= hispost[i].postownerpicture %>" alt="">
+                            <h5 class="text-light px-2"><%= hispost[i].postownername %>
+                                <span class="text-info fs-6 d-block"><%= hispost[i].postedtime %></span>
+                            </h5>
                         </div>
-                        <div>
-                            <div>
-                                <p class="text-info"><%= hispost[i].postcontent %></p>
-                            </div>
-                            <div class="imageofpost">
-                                <img class="w-100" src="\assets\images\post\<%= hispost[i].picture %>" alt="">
-                            </div>
-                        </div>
-                        <div class="d-flex mx-2 p-4 justify-content-center">
-                            <div class="p-1 px-2">
-                                <i class="bi pointer px-lg-5 px-2 col-5 py-lg-2 py-1 rounded border fs-lg-4 fs-5 text-light bi-star"><span class="px-2">like</span></i>
-                            </div>
-                            <div class="p-1 mx-2 px-2">
-                                <i class="bi pointer px-lg-5 px-2 w-50 col-5 py-lg-2 py-1 rounded border fs-lg-4 fs-5 text-light bi-chat-square"><span class="px-2">Comment</span></i>
-                            </div>
-                            
+                        <div class="col-1">
+                            <i class="bi pointer fs-lg-4 fs-5 text-light bi-three-dots"></i>
                         </div>
                     </div>
-                <%}%>
+                    <div>
+                        <div>
+                            <p class="text-info py-2"><%= hispost[i].postcontent %></p>
+                        </div>
+                        <div class="imageofpost">
+                            <img class="w-100" src="\assets\images\post\<%= hispost[i].picture %>" alt="">
+                        </div>
+                    </div>
+                    <div class="d-flex mx-2 p-4 justify-content-center">
+                        <div class="p-1 px-2">
+                            <i class="bi pointer px-lg-5 px-2 col-5 py-lg-2 py-1 rounded border fs-lg-4 fs-5 text-light bi-star"><span class="px-2">like</span></i>
+                        </div>
+                        <div class="p-1 mx-2 px-2">
+                            <i class="bi pointer px-lg-5 px-2 w-50 col-5 py-lg-2 py-1 rounded border fs-lg-4 fs-5 text-light bi-chat-square"><span class="px-2">Comment</span></i>
+                        </div>
+                        
+                    </div>
+                </div>
             <%}%>
-        </div>
+        <%}%>
     </div>
 </div>
 
