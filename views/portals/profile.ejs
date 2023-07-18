@@ -1,20 +1,23 @@
-<div class="">
+<div style="overflow: hidden;" class="">
     <div>
-        <div style="height: 150px;" class="bg-danger coversty">
+        <div style="height: 190px;" class="bg-danger coverdefaltphoto coversty">
             <img class="w-100" src="\assets\images\profilephoto\<%= myself.coverphoto %>" alt="">
         </div>
     </div>
     <div class="shadow bg-none d-flex justify-content-center rounded col-lg-8 col-12 m-auto">
-        <div class="bg-none shadow rounded text-center d-lg-flex justify-lg-content-center">
-            <div style="border-radius: 100px; height: 120px; width: 120px; margin-top: -50px; border: 1px solid gray;" class="m-auto text-center">
+        <div class="bg-none shadow py-4 rounded text-center d-lg-flex justify-lg-content-center">
+            <div style="border-radius: 100px; height: 100px; width: 100px; margin-top: -50px; border: 1px solid gray;" class="m-auto profiledefaltphoto text-center">
                 <img style="border-radius: 100px; height: 100%; width: 100%;" class="d-block" src="\assets\images\profilephoto\<%= myself.profilephoto %>" alt="">
             </div>
-            <div class="col-lg-7 col-12 px-lg-4 px-2">
-                <h1 class="text-light"><%= myself.fullname %></h1>
+            <div class="col-lg-8 col-12 px-lg-4 px-2">
+                <h3 class="text-light"><%= myself.fullname %></h3>
                 <p class="text-info fs-5 text-bolder"><%= myself.tittle %></p>
                 <input class="d-none" type="text" value="<%= myself._id %>" name="myidofmine" id="myidofmine">
             </div>
         </div>
+    </div>
+    <div class="text-center my-4">
+        <a class="btn-success bg-danger mx-lg-4 mx-3 rounded text-decoration-none py-lg-2 py-1 px-lg-4 px-2 text-center m-auto" href="/editprofile">Edit profile</a>
     </div>
 
     <div class="p-2 my-3 d-lg-flex justify-content-center">
@@ -22,7 +25,6 @@
         <span class="rounded d-block bg-dark py-2 px-4 mx-2 text-light"><span class="d-block mr-4 text-info">Home city</span><%= myself.homecity %></span>
         <span class="rounded d-block bg-dark py-2 px-4 mx-2 text-light"><span class="d-block mr-4 text-info">Birthday</span><%= myself.birthday %></span>
         <span class="rounded d-block bg-dark py-2 px-4 mx-2 text-light"><span class="d-block mr-4 text-info">Age</span><%= myself.age %></span>
-        <span class="rounded d-block bg-dark py-2 px-4 mx-2 text-light"><span class="d-block mr-4 text-info">Phone number</span><%= myself.phone %></span>
         <span class="rounded d-block bg-dark py-2 px-4 mx-2 text-light"><span class="d-block mr-4 text-info">Email address</span><%= myself.email %></span>
     </div>
 </div>
@@ -30,7 +32,7 @@
     <div class="col-lg-4 col-0 mx-2">
 
     </div>
-    <div class="col-lg-5 col-12">
+    <div style="background-color: rgb(26, 24, 24);" class="col-lg-5 p-2 col-12">
         <% if (mypost.length===0) {%>
             <h1 class="text-info text-bolder text-center">Sorry there is no post</h1>
         <%} else {%>
