@@ -17,9 +17,9 @@ const sendEmail = async (userEmail, userid, key) => {
         const info = await transporter.sendMail({
             from: process.env.MY_EMAIL,
             to: userEmail,
-            subject: "Your confirmation code", 
+            subject: "Reset your password", 
             text: '',
-            html: `<div><h1>Click the button to reset your pass word of diahoo</h1><a href="http://localhost:3000/setNewpasswordpage/${userid}/${key}" style="background-color: blue; color: white; font-size: 25px; padding: 5px 10px; display: block; text-align:center">Reset password</a></div>`
+            html: `<div><h1>Click the button to reset your pass word of diahoo</h1><a href="https://diahoo.com/setNewpasswordpage/${userid}/${key}" style="background-color: blue; color: white; font-size: 25px; padding: 5px 10px; display: block; text-align:center">Reset password</a></div>`
         });
         const successfull = {
             statusCode: 200,

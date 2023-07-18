@@ -342,7 +342,6 @@ const mychatlistControler = async (req, res) => {
       const userElements = [];
       for (const chatlist of myChatlists) {
         const friendId = chatlist.chatIds[0].find((id) => id !== myIdForChat);
-        
         if (friendId) {
           const myfriend = await resmodel.findOne({ _id: friendId });
           const lastMessage = chatlist.messages[chatlist.messages.length - 1];
