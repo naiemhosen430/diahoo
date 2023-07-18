@@ -95,10 +95,13 @@ let myidd;
   });
 
   socket.on('disconnect', async () => {
-    try {
-      await updateOnlineStatus(0);
-    } catch (error) {
-      console.log(error);
+    // Check if the socket has been disconnected intentionally or due to browser close
+    if (socket.disconnected) {
+      try {
+        await updateOnlineStatus(0);
+      } catch (error) {
+        console.log(error);
+      }
     }
   });
 

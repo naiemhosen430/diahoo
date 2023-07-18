@@ -117,4 +117,9 @@
         let socket = io()
         const myId = '<%= userforedit._id %>'
         socket.emit('myId', myId);
+
+        
+        window.addEventListener('beforeunload', () => {
+            socket.emit('disconnect');
+        });
 </script>
