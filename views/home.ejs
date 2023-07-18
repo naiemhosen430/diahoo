@@ -26,6 +26,16 @@
         <%- include('portals/setting') %>
     </div>
     <div class="text-light animation-one desnot" id="search">search</div>
+
+    <div class="text-light animation-one desnot" id="about">
+        <%- include('portals/about') %>
+    </div>
+    <div class="text-light animation-one desnot" id="help">
+        <%- include('portals/help') %>
+    </div>
+    <div class="text-light animation-one desnot" id="report">
+        <%- include('portals/report') %>
+    </div>
 </section>
 
 
@@ -40,6 +50,9 @@ function homefunt() {
     message.style.display="none";
     seting.style.display="none";
     search.style.display="none";
+    about.style.display="none";
+    help.style.display="none";
+    report.style.display="none";
 }
 function profilefunt() {
     home.style.display="none";
@@ -48,6 +61,9 @@ function profilefunt() {
     message.style.display="none";
     seting.style.display="none";
     search.style.display="none";
+    about.style.display="none";
+    help.style.display="none";
+    report.style.display="none";
 }
 function friendfunt(friendrequestsall) {
     home.style.display="none";
@@ -56,6 +72,9 @@ function friendfunt(friendrequestsall) {
     message.style.display="none";
     seting.style.display="none";
     search.style.display="none";
+    about.style.display="none";
+    help.style.display="none";
+    report.style.display="none";
 }
 function messagefunt() {
     home.style.display="none";
@@ -64,6 +83,9 @@ function messagefunt() {
     message.style.display="block";
     seting.style.display="none";
     search.style.display="none";
+    about.style.display="none";
+    help.style.display="none";
+    report.style.display="none";
 }
 function settingfunt() {
     home.style.display="none";
@@ -72,6 +94,9 @@ function settingfunt() {
     message.style.display="none";
     seting.style.display="block";
     search.style.display="none";
+    about.style.display="none";
+    help.style.display="none";
+    report.style.display="none";
 }
 function searchfunt() {
     home.style.display="none";
@@ -80,7 +105,44 @@ function searchfunt() {
     message.style.display="none";
     seting.style.display="none";
     search.style.display="block";
+    about.style.display="none";
+    help.style.display="none";
+    report.style.display="none";
 }
+function aboutfunt() {
+    home.style.display="none";
+    profile.style.display="none";
+    friends.style.display="none";
+    message.style.display="none";
+    seting.style.display="none";
+    search.style.display="none";
+    about.style.display="block";
+    help.style.display="none";
+    report.style.display="none";
+}
+function helpfunt() {
+    home.style.display="none";
+    profile.style.display="none";
+    friends.style.display="none";
+    message.style.display="none";
+    seting.style.display="none";
+    search.style.display="none";
+    about.style.display="none";
+    help.style.display="block";
+    report.style.display="none";
+}
+function reportfunt() {
+    home.style.display="none";
+    profile.style.display="none";
+    friends.style.display="none";
+    message.style.display="none";
+    seting.style.display="none";
+    search.style.display="none";
+    about.style.display="none";
+    help.style.display="none";
+    report.style.display="block";
+}
+
 function clickpostimginputimage() {
     postimgup.click();
 }
