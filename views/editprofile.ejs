@@ -111,3 +111,10 @@
         }
     }
 </script>
+
+<script src="/socket.io/socket.io.js"></script>
+<script>
+        let socket = io()
+        const myId = '<%= userforedit._id %>'
+        socket.emit('myId', myId);
+</script>

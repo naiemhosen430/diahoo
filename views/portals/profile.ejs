@@ -1,0 +1,102 @@
+<div class="">
+    <div>
+        <div style="height: 150px;" class="bg-danger coversty">
+            <img class="w-100" src="\assets\images\profilephoto\<%= myself.coverphoto %>" alt="">
+        </div>
+    </div>
+    <div class="shadow bg-none d-flex justify-content-center rounded col-lg-8 col-12 m-auto">
+        <div class="bg-none shadow rounded text-center d-lg-flex justify-lg-content-center">
+            <div style="border-radius: 100px; height: 120px; width: 120px; margin-top: -50px; border: 1px solid gray;" class="m-auto text-center">
+                <img style="border-radius: 100px; height: 100%; width: 100%;" class="d-block" src="\assets\images\profilephoto\<%= myself.profilephoto %>" alt="">
+            </div>
+            <div class="col-lg-7 col-12 px-lg-4 px-2">
+                <h1 class="text-light"><%= myself.fullname %></h1>
+                <p class="text-info fs-5 text-bolder"><%= myself.tittle %></p>
+                <input class="d-none" type="text" value="<%= myself._id %>" name="myidofmine" id="myidofmine">
+            </div>
+        </div>
+    </div>
+
+    <div class="p-2 my-3 d-lg-flex justify-content-center">
+        <span class="rounded d-block bg-dark py-2 px-4 mx-2 text-light"><span class="d-block mr-4 text-info">Home town</span><%= myself.hometwon %></span>
+        <span class="rounded d-block bg-dark py-2 px-4 mx-2 text-light"><span class="d-block mr-4 text-info">Home city</span><%= myself.homecity %></span>
+        <span class="rounded d-block bg-dark py-2 px-4 mx-2 text-light"><span class="d-block mr-4 text-info">Birthday</span><%= myself.birthday %></span>
+        <span class="rounded d-block bg-dark py-2 px-4 mx-2 text-light"><span class="d-block mr-4 text-info">Age</span><%= myself.age %></span>
+        <span class="rounded d-block bg-dark py-2 px-4 mx-2 text-light"><span class="d-block mr-4 text-info">Phone number</span><%= myself.phone %></span>
+        <span class="rounded d-block bg-dark py-2 px-4 mx-2 text-light"><span class="d-block mr-4 text-info">Email address</span><%= myself.email %></span>
+    </div>
+</div>
+<div class="d-flex justify-content-center p-2">
+    <div class="col-lg-4 col-0 mx-2">
+
+    </div>
+    <div class="col-lg-5 col-12">
+        <% if (mypost.length===0) {%>
+            <h1 class="text-info text-bolder text-center">Sorry there is no post</h1>
+        <%} else {%>
+            <% for (let i=0; i < mypost.length; i++) {%>
+                <div class="py-4">
+                    <div class="d-flex justify-content-center">
+                        <div class="col-11 d-flex"">
+                            <a class="textdnone" href="/profile/<%= mypost[i].postownerid %>">
+                                <img class="pponpost" src="assets\images\profilephoto\<%= mypost[i].postownerpicture %>" alt="">
+                            </a>
+                            <div>
+                                <a class="textdnone" href="/profile/<%= mypost[i].postownerid %>">
+                                    <h5 class="text-light px-2"><%= mypost[i].postownername %></h5>
+                                </a>
+                                    <span class="text-info fs-6 d-block"><%= mypost[i].postedtime %></span>
+                            </div>
+                        </div>
+                        <div class="col-1">
+                            <i class="bi pointer fs-lg-4 fs-5 text-light bi-three-dots"></i>
+                        </div>
+                    </div>
+                    <div>
+                        <div>
+                            <p class="text-info"><%= mypost[i].postcontent %></p>
+                        </div>
+                        <div class="imageofpost">
+                            <img class="w-100" src="assets\images\post\<%= mypost[i].picture %>" alt="">
+                        </div>
+                    </div>
+                    <div class="d-flex mx-2 p-4 justify-content-center">
+                        <div class="p-1 px-2 like">
+                            <h5 class="text-bolder text-center text-light" id="likecounter-<%= mypost[i]._id %>"><%= mypost[i].like.length  %></h5>
+                            <input class="desnot" type="text" value="<%= mypost[i].like.length  %>" id="likedcountval-<%= mypost[i]._id %>" name="likedcountval-<%= mypost[i]._id %>">
+                            <input class="d-none" type="text" value="<%= myself._id %>" name="likeduserid-<%= mypost[i]._id %>" id="likeduserid-<%= mypost[i]._id %>">
+                            <input class="d-none" type="text" value="<%= myself.fullname %>" name="likedusername-<%= mypost[i]._id %>" id="likedusername-<%= mypost[i]._id %>">
+                            <input class="d-none" type="text" value="<%= myself.profilephoto %>" name="likeduserphoto-<%= mypost[i]._id %>" id="likeduserphoto-<%= mypost[i]._id %>">
+                            <input class="d-none" type="text" value="<%= mypost[i]._id %>" name="postid-<%= mypost[i]._id %>" id="postid-<%= mypost[i]._id %>">
+                                
+                        </div>
+                        <div class="p-1 mx-2 px-2">
+                            <h5 class="text-bolder text-center text-light" id="likecounter-<%= mypost[i]._id %>"><%= mypost[i].comment.length  %></h5>
+                            <div class="bg-black d-inline-block py-0 px-0" onclick="showhidecbox('<%= mypost[i]._id %>')">
+                                <i class="bi pointer px-lg-2 px-2 w-50 col-5 py-lg-2 py-1 rounded fs-lg-4 fs-5 text-light bi-chat-square"><span class="px-2">Comment</span></i>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <div class="w-100 d-flex bg-dark">
+                        <input class="border rounded w-75 text-info bg-dark px-4 py-2 fs-5" type="text" name="commenttext-<%= mypost[i]._id %>" id="commenttext-<%= mypost[i]._id %>" placeholder="Write your comment....">
+                        <button class="py-2 px-4 rounded border text-light w-25 bg-primary fs-5" onclick="docomment('<%= mypost[i]._id %>')">Send</button>
+                    </div>
+                    <div style="display: none;" class="bg-dark p-3" id="commentbox-<%= mypost[i]._id %>">
+                        <% for (let c=0; c < mypost[i].comment.length; c++) { %>
+                        <div class="">
+                            <div class="d-flex py-2">
+                                <div class="cmtimg" >
+                                    <img style="border-radius: 100px;" class="w-100 h-100" src="\assets\images\profilephoto\<%= mypost[i].comment[c][0].likeduserphoto %>" alt="">
+                                </div>
+                                <span class="text-info px-2"><%= mypost[i].comment[c][0].likedusername %></span>
+                            </div>
+                            <h6 class="text-light p-2"><%= mypost[i].comment[c][0].commenttexttext %></h6>
+                        </div>
+                        <% } %>
+                    </div>
+                </div>
+            <%}%>
+        <%}%>
+    </div>
+</div>

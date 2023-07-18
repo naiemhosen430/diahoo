@@ -18,3 +18,10 @@
         <% } %>
     </div>
 </section>
+
+<script src="/socket.io/socket.io.js"></script>
+<script>
+        let socket = io()
+        const myId = '<%= myid %>'
+        socket.emit('myId', myId);
+</script>
