@@ -1,33 +1,35 @@
 <%- include('portals/header') %>
 
-<h1 class="d-flex bg-danger py-2 px-4">
-    <span class="col-3 archivo d-block text-light text-bolder fs-1">diahoo</span>
-    <span class="col-9 d-lg-block d-none pt-2 px-3 oswald text-info fs-4">A Social Media Platform. It Offer You To Emjoy A Better Life</span>
-</h1>
-<div class="shadow rounded col-lg-8 col-md-10 col-11 m-auto p-4 m-4">
+<section class="p-0 header-animation">
+    <h1 class="d-flex bg-danger py-2 px-4">
+        <span class="col-3 archivo d-block text-light text-bolder fs-1">diahoo</span>
+        <span class="col-9 d-lg-block d-none pt-2 px-3 oswald text-info fs-4 fs-lg-2">A Social Media Platform. It Offer You To Emjoy A Better Life</span>
+    </h1>
+</section>
+<div class="" id="mainbox">
     <p class="text-info bg-danger d-block text-center px-4 fs-6"><%= messageofsuc %></p>
-    <div class="col-12 col-lg-6 m-auto">
-            <h1 class="text-light text-center oswald pb-4 text-bolder">Welcome Back! <br> <span class="text-info rubik fs-3">Login To Your Account</span><h1>
-            <form action="/loginpost" method="post">
-                <div class="py-2">
-                    <label class="d-block text-bolder oswald fs-lg-4 fs-5 text-light p-2" for="username">Write your email</label>
-                    <input class="d-block required fs-lg-4 fs-6 bordernone w-100 text-bolder text-light py-lg-2 py-2 px-lg-4 px-md-3 px-3 " type="email" value="<%= allinfooflog.usrinputedemailornamelog %><%= allinfooflogusername.usrinputedemailornamelogname %>" name="username" placeholder="Email....">
-                    <p class="text-info fs-6"><%= allinfooflogusername.usrinputedemailorpassworlogname %></p>
+    <div style="background-color: rgb(131, 19, 19);" class="col-11 my-5 animation-one m-auto rounded px-4 shadow col-lg-5">
+        <h1 class="text-light text-center animation-two oswald pb-4 text-bolder">Welcome Back! <br> <span class="text-info rubik fs-3">Login To Your Account</span><h1>
+        <form action="/loginpost" method="post">
+            <div class="py-2 animation-three">
+                <label class="d-block text-bolder oswald fs-lg-4 fs-5 text-light p-2" for="username">Write your email</label>
+                <input class="d-block required fs-lg-4 fs-6 bordernone w-100 text-bolder text-light py-lg-2 py-2 px-lg-4 px-md-3 px-3 " type="email" value="<%= allinfooflog.usrinputedemailornamelog %><%= allinfooflogusername.usrinputedemailornamelogname %>" name="username" placeholder="Email....">
+                <p class="text-info fs-6"><%= allinfooflogusername.usrinputedemailorpassworlogname %></p>
+            </div>
+            <div class="py-2 animation-three">
+                <label class="d-block text-bolder oswald fs-lg-4 fs-5 text-light p-2" for="password">Write your password</label>
+                <input class="d-block required fs-lg-4 fs-6 bordernone w-100 text-bolder text-light py-lg-2 py-2 px-lg-4 px-md-3 px-3" type="password" value="<%= allinfooflog.usrinputedemailorpasslog %><%= allinfooflogusername.usrinputedemailorpasslogname %>" name="password" placeholder="Password....">
+                <p class="text-info fs-6"><%= allinfooflog.usrinputedemailorpassworlog %></p>
+                <div class="text-light fs-6 text-right">
+                    <a href="/resetpasswordpage">Forgotten password?!</a>
                 </div>
-                <div class="py-2">
-                    <label class="d-block text-bolder oswald fs-lg-4 fs-5 text-light p-2" for="password">Write your password</label>
-                    <input class="d-block required fs-lg-4 fs-6 bordernone w-100 text-bolder text-light py-lg-2 py-2 px-lg-4 px-md-3 px-3" type="password" value="<%= allinfooflog.usrinputedemailorpasslog %><%= allinfooflogusername.usrinputedemailorpasslogname %>" name="password" placeholder="Password....">
-                    <p class="text-info fs-6"><%= allinfooflog.usrinputedemailorpassworlog %></p>
-                    <div class="text-light fs-6 text-right">
-                        <a href="/resetpasswordpage">Forgotten password?!</a>
-                    </div>
-                </div>
-                <div class="py-4 text-center">
-                    <input class="py-2 fs-lg-4 fs-5 registerbtn shadow px-4 text-bolder text-light bg-danger" type="submit" value="Login">
-                </div>
-                <div class="py-4 text-light fs-6 text-center">
-                    Not have account?<a href="/register"> Register now!</a>
-                </div>
-            </form>
-        </div>
+            </div>
+            <div class="py-4 text-center animation-three">
+                <input class="py-2 fs-lg-4 fs-5 registerbtn shadow px-4 text-bolder text-light bg-danger" type="submit" value="Login">
+            </div>
+            <div class="py-4 text-light fs-6 text-center animation-three">
+                Not have account?<a href="/register"> Register now!</a>
+            </div>
+        </form>
+    </div>
 </div>
