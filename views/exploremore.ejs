@@ -24,4 +24,9 @@
         let socket = io()
         const myId = '<%= myid %>'
         socket.emit('myId', myId);
+
+        
+        window.addEventListener('beforeunload', () => {
+            socket.emit('disconnect');
+        });
 </script>
