@@ -40,13 +40,13 @@
                                     <img class="pponpost" src="assets\images\profilephoto\<%= allpost[i].postownerpicture %>" alt="">
                                 </a>
                                 <div>
-                                    <a class="textdnone animation-one" href="/profile/<%= allpost[i].postownerid %>">
+                                    <a class="textdnone" href="/profile/<%= allpost[i].postownerid %>">
                                         <h5 class="text-light px-2"><%= allpost[i].postownername %></h5>
+                                        <span class="text-info animation-one fs-6 d-block"><%= allpost[i].postedtime %></span>
                                     </a>
-                                    <span class="text-info animation-one fs-6 d-block"><%= allpost[i].postedtime %></span>
                                 </div>
                             </div>
-                            <div class="col-1 animation-one">
+                            <div class="col-1">
                                 <i class="bi pointer fs-lg-4 fs-5 text-light bi-three-dots"></i>
                             </div>
                         </div>

@@ -1,28 +1,26 @@
 .header-animation {
     opacity: 0;
-    animation: header-animation 4s ease-out forwards;
+    animation: header-animation 2s ease-out forwards;
 }
 
 .p-animation {
-    margin-left: -200px;
     opacity: 0;
-    animation: p-animation 4s ease-in-out forwards;
+    animation: p-animation 2s ease-in-out forwards;
 }
 
 .animation-one {
-    padding: 10px 20px;
     opacity: 0;
-    animation: animation-one 3s ease-in-out forwards;
+    animation: animation-one 2s ease-in-out forwards;
 }
 
 .animation-two {
     opacity: 0;
-    animation: animation-two 3s ease-in-out forwards;
+    animation: animation-two 2s ease-in-out forwards;
 }
 
 .animation-three {
     opacity: 0;
-    animation: animation-three 3s ease-in-out forwards;
+    animation: animation-three 2s ease-in-out forwards;
 }
 
 @keyframes header-animation {
