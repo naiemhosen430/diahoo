@@ -1,0 +1,15 @@
+<form action="/post" method="post" enctype="multipart/form-data">
+    <h3 class="text-info p-2">Write post content</h3>
+    <div class="py-2 p-animation">
+        <textarea class="w-100 h-25 rounded bg-dark text-light fs-5 p-2" name="postcontent" id="postcontent" cols="30" rows="2" placeholder="Start writting"></textarea>
+        <input type="text" class="d-none" value="<%= myself.fullname %>" id="postownername" name="postownername">
+        <input type="text" class="d-none" value="<%= myself.profilephoto %>" id="postownerpicture" name="postownerpicture">
+        <input type="text" class="d-none" value="<%= myself._id %>" id="postownerid" name="postownerid">
+    </div>
+    <div class="py-2 p-animation">
+        <input class="d-none" type="file" name="postimageor" onchange="openpostimageupp()" id="postimgup">
+        <img class="w-100" src="" alt="" id="prevewimgpost">
+        <div class="cuspostbox fs-4 text-info bg-dark" onclick="clickpostimginputimage()" id="openpostupimg">Add image</div>
+    </div>
+    <input class="text-light bg-primary w-100 border rounded py-1 px-4" type="submit" onclick="hidepostelement()" value="Post">
+</form>
