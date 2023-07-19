@@ -1,4 +1,15 @@
 <%- include('header') %>
+<div style="z-index: 5000;" class="col-12 desnot bg-dark d-lg-none p-2 fixed-top" id="navnotemain">
+    <h2 class="text-light">
+        <span class="pointer" onclick="closemanunote()">
+            close
+        </span>
+    </h2>
+    <div class="text-center">
+        <a style="text-decoration: none; background-color: rgb(25, 25, 30);" class="d-inline-block py-2 px-4 rounded shadow fs-5 m-4" id="addnotenav" onclick="addnotesfunt()">Add note</a>
+        <a style="text-decoration: none; background-color: rgb(25, 25, 30);" class="d-inline-block py-2 px-4 rounded shadow fs-5 m-4" id="addnotenav" onclick="myfunt('<%- myself._id %>')">My note</a>
+    </div>
+</div>
 <section style="overflow: hidden;" class="bg-dark header-animation sticky-top py-2 px-lg-4">
     <div class="d-flex d-block d-lg-none px-1 w-100 d-md-none">
         <div class="col-5">
@@ -15,23 +26,19 @@
             <span class="text-bolder text-light pointer fs-1 col-3">diahoo</span>
         </a>
         <ul class="nav d-flex justify-content-lg-center justify-content-lg-center mt-lg-3 mt-md-3 mt-1 col-lg-6 col-md-6 col-10">
-            <li class="nav-item pointer" onclick="homefunt()">
-                <a href="/">
-                    <i class="bi p-lg-3 p-1 px-lg-5 px-lg-3 px-3 pb-2 fs-lg-4 fs-5 text-light bi-house-door-fill"></i>
-                </a>
+            <li style="border-bottom: 2px solid blue;" class="nav-item pointer" onclick="homefunt()" id="homee">
+                <i class="bi p-lg-3 p-1 px-lg-5 px-lg-3 px-3 pb-2 fs-lg-4 fs-5 text-light bi-house-door-fill"></i>
             </li>
-            <li class="nav-item pointer" onclick="profilefunt()">
+            <li class="nav-item pointer" onclick="profilefunt()" id="profilee">
                 <i class="bi p-lg-3 p-1 px-lg-5 px-lg-3 px-3 pb-2 fs-lg-4 fs-5 text-light bi-person-circle"></i>
             </li>
-            <li class="nav-item pointer" onclick="friendfunt(), fatchsenduserids('<%= myself.friendrequests %>'), fatchmyfriendids('<%= myself.friends %>')">
+            <li class="nav-item pointer" onclick="friendfunt(), fatchsenduserids('<%= myself.friendrequests %>'), fatchmyfriendids('<%= myself.friends %>')" id="friendd">
                 <i class="bi p-lg-3 p-1 px-lg-5 px-lg-3 px-3 pb-2 fs-lg-4 fs-5 text-light bi-people-fill"></i>
             </li>
-            <li class="nav-item pointer" onclick="messagefunt(), myChatList('<%= myself._id %>')">
-                <a href="#chat">
-                    <i class="bi p-lg-3 p-1 px-lg-5 px-lg-3 px-3 pb-2 fs-lg-4 fs-5 text-light bi-chat-dots-fill"></i>
-                </a>
+            <li class="nav-item pointer" onclick="messagefunt(), myChatList('<%= myself._id %>')" id="chatt">
+                <i class="bi p-lg-3 p-1 px-lg-5 px-lg-3 px-3 pb-2 fs-lg-4 fs-5 text-light bi-chat-dots-fill"></i>
             </li>
-            <li class="nav-item pointer" onclick="settingfunt()">
+            <li class="nav-item pointer" onclick="settingfunt()" id="settingg">
                 <i class="bi p-lg-3 p-1 px-lg-5 px-lg-3 px-3 pb-2 fs-lg-4 fs-5 text-light bi-gear-fill"></i>
             </li>
 
@@ -43,7 +50,13 @@
         </ul>
     </div>
 </section>
-<script src="/views/portals/main.js"></script>
+
+<script>
+function closemanunote() {
+    navnotemain.style.display = 'none'
+}
+</script>
+
 <script src="/socket.io/socket.io.js"></script>
 <script>
         let socket = io()
