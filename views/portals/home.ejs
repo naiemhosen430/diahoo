@@ -1,116 +1,186 @@
-<div class="cusbstyle animation-one col-12 col-lg-5 m-auto d-lg-block d-md-block d-none py-1 px-5 fs-4 bg-dark text-info" id="showpostelement" onclick="showpostelement()">Post Something....</div>
-<div class="col-12 col-lg-5 px-4 bg-black m-auto">
-
-    <% if (allpost.length == 0) {%>
-        <h1 class="text-info animation-one text-bolder text-center">Sorry there is no post</h1>
-    <%} else {%>
-        <% for (let i=0; i < allpost.length; i++) {%>
-            <div class="py-4 header-animation">
-                <div class="d-flex justify-content-center animation-one">
-                    <div class="col-11 d-flex animation-two">
-                        <a class="textdnone" href="/profile/<%= allpost[i].postownerid %>">
-                            <img class="pponpost" src="assets\images\profilephoto\<%= allpost[i].postownerpicture %>" alt="">
-                        </a>
-                        <div>
-                            <a class="textdnone" href="/profile/<%= allpost[i].postownerid %>">
-                                <h5 class="text-light px-2"><%= allpost[i].postownername %></h5>
-                                <span class="text-info animation-one fs-6 d-block"><%= allpost[i].postedtime %></span>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-1">
-                        <i class="bi pointer fs-lg-4 fs-5 text-light bi-three-dots"></i>
-                    </div>
+<div class="d-flex">
+    <div style="position: fixed; top: 10;" class="col-3 d-lg-inline-block d-none bg-black mx-2 p-4">
+            <div style="overflow: hidden;" class="">
+                <div class="shadow bg-none rounded text-center col-lg-8 col-12 m-auto">
+                    <div style="border-radius: 100px; height: 100px; width: 100px; margin-top: -50px; border: 1px solid gray;" class="m-auto profiledefaltphoto text-center">
+                        <img style="border-radius: 100px; height: 100%; width: 100%;" class="d-block" src="\assets\images\profilephoto\<%= myself.profilephoto %>" alt="">
                 </div>
-                <div class="animation-one">
-                    <div>
-                        <p class="text-info animation-two"><%= allpost[i].postcontent %></p>
-                    </div>
-                    <div class="imageofpost animation-three">
-                        <img class="w-100" src="assets\images\post\<%= allpost[i].picture %>" alt="">
-                    </div>
-                </div>
-                <div class="d-flex mx-2 p-4 animation-one justify-content-center">
-                    <div class="p-1 px-2 like">
-                        <h5 class="text-bolder text-center text-light" id="likecounter-<%= allpost[i]._id %>"><%= allpost[i].like.length  %></h5>
-                        <input class="desnot" type="text" value="<%= allpost[i].like.length  %>" id="likedcountval-<%= allpost[i]._id %>" name="likedcountval-<%= allpost[i]._id %>">
-                        <input class="d-none" type="text" value="<%= myself._id %>" name="likeduserid-<%= allpost[i]._id %>" id="likeduserid-<%= allpost[i]._id %>">
-                        <input class="d-none" type="text" value="<%= myself.fullname %>" name="likedusername-<%= allpost[i]._id %>" id="likedusername-<%= allpost[i]._id %>">
-                        <input class="d-none" type="text" value="<%= myself.profilephoto %>" name="likeduserphoto-<%= allpost[i]._id %>" id="likeduserphoto-<%= allpost[i]._id %>">
-                        <input class="d-none" type="text" value="<%= allpost[i]._id %>" name="postid-<%= allpost[i]._id %>" id="postid-<%= allpost[i]._id %>">
-                        
-                        <% if (allpost[i].like.length === 0) { %>
-                            <div style="display: block;" class="" id="firstlike-<%= allpost[i]._id %>" onclick="likesend('<%= allpost[i]._id %>')">
-                                <i class="bi pointer px-lg-2 px-0 col-5 py-lg-2 py-1 rounded fs-lg-4 fs-6 text-light bi-star">
-                                    <span class="px-2">Like</span>
-                                </i>
-                            </div>
-                            <div class="" id="dislikebtnone-<%= allpost[i]._id %>" onclick="dislikesend('<%= allpost[i]._id %>')" style="display: none;">
-                                <i class="bi pointer px-lg-2 px-0 col-5 py-lg-2 py-1 rounded fs-lg-4 fs-6 text-light bi-star-fill">
-                                    <span class="px-2">Liked</span>
-                                </i>
-                            </div>
-                            <% } else { %>
-                                <% let likedByCurrentUser = false; %>
-                                <% for (let j = 0; j < allpost[i].like.length; j++) { %>
-                                    <% const likeObj = allpost[i].like[j]; %>
-                                    <% if (likeObj.likeduserid == myself._id) { %>
-                                    <% likedByCurrentUser = true; %>
-                                    <% break; %>
-                                <% } %>
-                                <% } %>
-                                <% if (likedByCurrentUser) { %>
-                                    <div style="display: block;" class="" id="dislikebtn-<%= allpost[i]._id %>" onclick="dislikesendone('<%= allpost[i]._id %>')" >
-                                        <i class="bi pointer px-lg-2 px-0 col-5 py-lg-2 py-1 rounded fs-lg-4 fs-6 text-light bi-star-fill">
-                                            <span class="px-2">Liked</span>
-                                        </i>
-                                    </div>
-                                    <div style="display: none;" class="" id="firstlikeotwo-<%= allpost[i]._id %>" onclick="likesendone('<%= allpost[i]._id %>')">
-                                        <i class="bi pointer px-lg-2 px-0 col-5 py-lg-2 py-1 rounded fs-lg-4 fs-6 text-light bi-star">
-                                            <span class="px-2">Like</span>
-                                        </i>
-                                    </div>
-                                <% } else { %>
-                                    <div class="" id="likebtn-<%= allpost[i]._id %>" onclick="likesendtwo('<%= allpost[i]._id %>')" style="display: block;">
-                                        <i class="bi pointer px-lg-2 px-0 col-5 py-lg-2 py-1 rounded fs-lg-4 fs-6 text-light bi-star">
-                                            <span class="px-2">Like</span>
-                                        </i>
-                                    </div>
-                                    <div class="" id="dislikebtnthree-<%= allpost[i]._id %>" onclick="dislikesendtwo('<%= allpost[i]._id %>')" style="display: none;">
-                                        <i class="bi pointer px-lg-2 px-0 col-5 py-lg-2 py-1 rounded fs-lg-4 fs-6 text-light bi-star-fill">
-                                            <span class="px-2">Liked</span>
-                                        </i>
-                                    </div>
-                                <% } %>
-                            <% } %>
-                                
-                        </div>
-                        <div class="p-1 mx-2 px-2 animation-one">
-                            <h5 class="text-bolder text-center text-light" id="likecounter-<%= allpost[i]._id %>"><%= allpost[i].comment.length  %></h5>
-                            <div class="bg-black d-inline-block py-0 px-0" onclick="showhidecbox('<%= allpost[i]._id %>')">
-                                <i class="bi pointer px-lg-2 px-0 w-50 col-5 py-lg-2 py-1 rounded fs-lg-4 fs-6 text-light bi-chat-square"><span class="px-2">Comment</span></i>
-                            </div>
-                        </div>
-
-                        </div>
-                        <div class="w-100 d-flex bg-dark animation-two">
-                            <input style="border: none;" class="rounded w-75 shadow text-info bg-dark px-lg-4 px-2 py-2 fs-5" required type="text" value="" onkeyup="showbtn('<%= allpost[i]._id %>')" name="commenttext-<%= allpost[i]._id %>" id="commenttext-<%= allpost[i]._id %>" placeholder="Write your comment....">
-                            <button style="border: none; display: none;" class="py-2 px-lg-4 px-2 rounded text-light w-25 bg-primary fs-5" id="cmntbtn-<%= allpost[i]._id %>" onclick="docomment('<%= allpost[i]._id %>')">Send</button>
-                        </div>
-                        <div style="display: none; background-color: rgb(7, 6, 6);" class="bg-dark p-3" id="commentbox-<%= allpost[i]._id %>">
-                        <% for (let c=0; c < allpost[i].comment.length; c++) { %>
-                            <div style="background-color: rgb(7, 6, 6);" class="animation-one">
-                                <div class="d-flex py-2">
-                                    <div class="cmtimg animation-two">
-                                        <img style="border-radius: 100px;" class="w-100 h-100" src="\assets\images\profilephoto\<%= allpost[i].comment[c].likeduserphoto %>" alt="">
-                                    </div>
-                                    <span class="text-info px-2 animation-two"><%= allpost[i].comment[c].likedusername %></span>
-                                </div>
-                                <h6 class="text-light p-2 animation-three"><%= allpost[i].comment[c].commenttexttext %></h6>
-                            </div>
-                        <% } %>
+                <div class="text-center">
+                    <h3 class="text-light"><%= myself.fullname %></h3>
+                    <p style="font-size: 15px;" class="text-info text-bolder"><%= myself.tittle %></p>
                 </div>
             </div>
+            <div class="list-group">
+                <a style="border: none;" onclick="feedfunt()" class="list-group-item bg-dark pointer my-1 hoverr text-info text-bolder">Feed</a>
+                <a style="border: none;" onclick="addnotesfunt()" class="list-group-item bg-dark pointer my-1 hoverr text-info text-bolder">Add Notes</a>
+                <a style="border: none;" onclick="myfunt()" class="list-group-item bg-dark pointer my-1 hoverr text-info text-bolder">My Notes</a>
+            </div>
+
+        </div>
+    </div>
+    <div class="col-3 d-lg-inline-block d-none bg-black mx-2 p-4"></div>
+    <div style="display: inline-block;"  class="col-12 col-lg-5 mx-2 bg-black" id="mainbox">
+        <div class="cusbstyle animation-one col-12 col-lg-12 m-auto d-lg-block d-md-block d-none py-1 px-5 fs-4 bg-dark text-info" id="showpostelement" onclick="showpostelement()">Post Something....</div>
+        <% if (allpost.length == 0) {%>
+            <h1 class="text-info animation-one text-bolder text-center">Sorry there is no post</h1>
+        <%} else {%>
+            <% for (let i=0; i < allpost.length; i++) {%>
+                <div class="py-4 header-animation">
+                    <div class="d-flex justify-content-center animation-one">
+                        <div class="col-11 d-flex animation-two">
+                            <a class="textdnone" href="/profile/<%= allpost[i].postownerid %>">
+                                <img class="pponpost" src="assets\images\profilephoto\<%= allpost[i].postownerpicture %>" alt="">
+                            </a>
+                            <div>
+                                <a class="textdnone" href="/profile/<%= allpost[i].postownerid %>">
+                                    <h5 class="text-light px-2"><%= allpost[i].postownername %></h5>
+                                    <span class="text-info animation-one fs-6 d-block"><%= allpost[i].postedtime %></span>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-1">
+                            <i class="bi pointer fs-lg-4 fs-5 text-light bi-three-dots"></i>
+                        </div>
+                    </div>
+                    <div class="animation-one">
+                        <div>
+                            <p class="text-info animation-two"><%= allpost[i].postcontent %></p>
+                        </div>
+                        <div class="imageofpost animation-three">
+                            <img class="w-100" src="assets\images\post\<%= allpost[i].picture %>" alt="">
+                        </div>
+                    </div>
+                    <div class="d-flex mx-2 p-4 animation-one justify-content-center">
+                        <div class="p-1 px-2 like">
+                            <h5 class="text-bolder text-center text-light" id="likecounter-<%= allpost[i]._id %>"><%= allpost[i].like.length  %></h5>
+                            <input class="desnot" type="text" value="<%= allpost[i].like.length  %>" id="likedcountval-<%= allpost[i]._id %>" name="likedcountval-<%= allpost[i]._id %>">
+                            <input class="d-none" type="text" value="<%= myself._id %>" name="likeduserid-<%= allpost[i]._id %>" id="likeduserid-<%= allpost[i]._id %>">
+                            <input class="d-none" type="text" value="<%= myself.fullname %>" name="likedusername-<%= allpost[i]._id %>" id="likedusername-<%= allpost[i]._id %>">
+                            <input class="d-none" type="text" value="<%= myself.profilephoto %>" name="likeduserphoto-<%= allpost[i]._id %>" id="likeduserphoto-<%= allpost[i]._id %>">
+                            <input class="d-none" type="text" value="<%= allpost[i]._id %>" name="postid-<%= allpost[i]._id %>" id="postid-<%= allpost[i]._id %>">
+                            
+                            <% if (allpost[i].like.length === 0) { %>
+                                <div style="display: block;" class="" id="firstlike-<%= allpost[i]._id %>" onclick="likesend('<%= allpost[i]._id %>')">
+                                    <i class="bi pointer px-lg-2 px-0 col-5 py-lg-2 py-1 rounded fs-lg-4 fs-6 text-light bi-star">
+                                        <span class="px-2">Like</span>
+                                    </i>
+                                </div>
+                                <div class="" id="dislikebtnone-<%= allpost[i]._id %>" onclick="dislikesend('<%= allpost[i]._id %>')" style="display: none;">
+                                    <i class="bi pointer px-lg-2 px-0 col-5 py-lg-2 py-1 rounded fs-lg-4 fs-6 text-light bi-star-fill">
+                                        <span class="px-2">Liked</span>
+                                    </i>
+                                </div>
+                                <% } else { %>
+                                    <% let likedByCurrentUser = false; %>
+                                    <% for (let j = 0; j < allpost[i].like.length; j++) { %>
+                                        <% const likeObj = allpost[i].like[j]; %>
+                                        <% if (likeObj.likeduserid == myself._id) { %>
+                                        <% likedByCurrentUser = true; %>
+                                        <% break; %>
+                                    <% } %>
+                                    <% } %>
+                                    <% if (likedByCurrentUser) { %>
+                                        <div style="display: block;" class="" id="dislikebtn-<%= allpost[i]._id %>" onclick="dislikesendone('<%= allpost[i]._id %>')" >
+                                            <i class="bi pointer px-lg-2 px-0 col-5 py-lg-2 py-1 rounded fs-lg-4 fs-6 text-light bi-star-fill">
+                                                <span class="px-2">Liked</span>
+                                            </i>
+                                        </div>
+                                        <div style="display: none;" class="" id="firstlikeotwo-<%= allpost[i]._id %>" onclick="likesendone('<%= allpost[i]._id %>')">
+                                            <i class="bi pointer px-lg-2 px-0 col-5 py-lg-2 py-1 rounded fs-lg-4 fs-6 text-light bi-star">
+                                                <span class="px-2">Like</span>
+                                            </i>
+                                        </div>
+                                    <% } else { %>
+                                        <div class="" id="likebtn-<%= allpost[i]._id %>" onclick="likesendtwo('<%= allpost[i]._id %>')" style="display: block;">
+                                            <i class="bi pointer px-lg-2 px-0 col-5 py-lg-2 py-1 rounded fs-lg-4 fs-6 text-light bi-star">
+                                                <span class="px-2">Like</span>
+                                            </i>
+                                        </div>
+                                        <div class="" id="dislikebtnthree-<%= allpost[i]._id %>" onclick="dislikesendtwo('<%= allpost[i]._id %>')" style="display: none;">
+                                            <i class="bi pointer px-lg-2 px-0 col-5 py-lg-2 py-1 rounded fs-lg-4 fs-6 text-light bi-star-fill">
+                                                <span class="px-2">Liked</span>
+                                            </i>
+                                        </div>
+                                    <% } %>
+                                <% } %>
+                                    
+                            </div>
+                            <div class="p-1 mx-2 px-2 animation-one">
+                                <h5 class="text-bolder text-center text-light" id="likecounter-<%= allpost[i]._id %>"><%= allpost[i].comment.length  %></h5>
+                                <div class="bg-black d-inline-block py-0 px-0" onclick="showhidecbox('<%= allpost[i]._id %>')">
+                                    <i class="bi pointer px-lg-2 px-0 w-50 col-5 py-lg-2 py-1 rounded fs-lg-4 fs-6 text-light bi-chat-square"><span class="px-2">Comment</span></i>
+                                </div>
+                            </div>
+
+                            </div>
+                            <div class="w-100 d-flex bg-dark animation-two">
+                                <input style="border: none;" class="rounded w-75 shadow text-info bg-dark px-lg-4 px-2 py-2 fs-5" required type="text" value="" onkeyup="showbtn('<%= allpost[i]._id %>')" name="commenttext-<%= allpost[i]._id %>" id="commenttext-<%= allpost[i]._id %>" placeholder="Write your comment....">
+                                <button style="border: none; display: none;" class="py-2 px-lg-4 px-2 rounded text-light w-25 bg-primary fs-5" id="cmntbtn-<%= allpost[i]._id %>" onclick="docomment('<%= allpost[i]._id %>')">Send</button>
+                            </div>
+                            <div style="display: none; background-color: rgb(7, 6, 6);" class="bg-dark p-3" id="commentbox-<%= allpost[i]._id %>">
+                            <% for (let c=0; c < allpost[i].comment.length; c++) { %>
+                                <div style="background-color: rgb(7, 6, 6);" class="animation-one">
+                                    <div class="d-flex py-2">
+                                        <div class="cmtimg animation-two">
+                                            <a href="/profile/<%- allpost[i].comment[c].likeduserid %>">
+                                                <img style="border-radius: 100px;" class="w-100 h-100" src="\assets\images\profilephoto\<%= allpost[i].comment[c].likeduserphoto %>" alt="">
+                                            </a>
+                                        </div>
+                                        <a href="/profile/<%- allpost[i].comment[c].likeduserid %>">
+                                            <span class="text-info px-2 animation-two"><%= allpost[i].comment[c].likedusername %></span>
+                                        </a>
+                                    </div>
+                                    <h6 class="text-light p-2 animation-three"><%= allpost[i].comment[c].commenttexttext %></h6>
+                                </div>
+                            <% } %>
+                    </div>
+                </div>
+            <%}%>
         <%}%>
-    <%}%>
+    </div>
+    <div style="display: none;" class="col-12 col-lg-5 mx-2 bg-black" id="addnotes">
+        <div class="py-2 px-5">
+            <div class="py-2">
+                <label class="d-block w-100 p-2 fs-4" for="note">Write your note name</label>
+                <input class="d-block border w-100 p-2 m-2 bg-dark text-light rounded shadow" type="text" placeholder="Note name....">
+            </div>
+            <div class="py-2">
+                <label class="d-block w-100 p-2 fs-4" for="note">Write your text and savge</label>
+                <textarea class="d-block w-100 p-2 m-2 bg-dark text-light rounded shadow" name="note" id="note" cols="30" rows="10"></textarea>
+            </div>
+            <button class="text-light m-2 d-inline-block py-2 px-4 rounded text-bolder text-center bg-danger">Save Note</button>
+        </div>
+    </div>
+    <div style="display: none;" class="col-12 col-lg-5 mx-2 bg-black" id="mynote">
+        <div class="m-4 p-2 rounded bg-dark">
+            <h2 class="text-bolder border-bottom text-light">Note Name</h2>
+            <p class="text-info py-2">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Magnam facere dicta deleniti excepturi voluptate nam veritatis eius quas quis, dolorum, repellat doloremque? Quidem, incidunt animi suscipit hic consectetur quibusdam qui.</p>
+        </div>
+        <div class="m-4 p-2 rounded bg-dark">
+            <h2 class="text-bolder border-bottom text-light">Note Name</h2>
+            <p class="text-info py-2">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Magnam facere dicta deleniti excepturi voluptate nam veritatis eius quas quis, dolorum, repellat doloremque? Quidem, incidunt animi suscipit hic consectetur quibusdam qui.</p>
+        </div>
+        <div class="m-4 p-2 rounded bg-dark">
+            <h2 class="text-bolder border-bottom text-light">Note Name</h2>
+            <p class="text-info py-2">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Magnam facere dicta deleniti excepturi voluptate nam veritatis eius quas quis, dolorum, repellat doloremque? Quidem, incidunt animi suscipit hic consectetur quibusdam qui.</p>
+        </div>
+    </div>
 </div>
+
+<script>
+    function myfunt() {
+        mainbox.style.display="none";
+        mynote.style.display="inline-block";
+        addnotes.style.display="none";
+    }
+    function feedfunt() {
+        mainbox.style.display="inline-block";
+        addnotes.style.display="none";
+        mynote.style.display="none";
+    }
+    function addnotesfunt() {
+        mainbox.style.display="none";
+        addnotes.style.display="inline-block";
+        mynote.style.display="none";
+}
+</script>

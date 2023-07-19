@@ -13,9 +13,13 @@
           </a>
         </div>
         <div class="col-8 pt-1 d-flex">
-          <img style="width: 30px; height: 30px; border-radius: 100px;" src="/assets/images/profilephoto/<%- myFriend.profilephoto %>" alt="">
+          <a href="/profile/<%- myFriend._id %>">
+            <img style="width: 30px; height: 30px; border-radius: 100px;" src="/assets/images/profilephoto/<%- myFriend.profilephoto %>" alt="">
+          </a>
           <div class="">
-            <h4 class="text-light t6ext-bolder ps-2"><%- myFriend.fullname %></h4>
+            <a style="text-decoration: none;" href="/profile/<%- myFriend._id %>">
+              <h4 class="text-light t6ext-bolder ps-2"><%- myFriend.fullname %></h4>
+            </a>
             <h6 class="text-bolder px-2 text-info">
               <% if (myFriend.online_status == 1) { %>
                 online
@@ -88,6 +92,10 @@ if (flvalue == '' || undefined || null) {
   const msgid = document.getElementById('msgid').value;
   const ourIds = { msgid };
   socket.emit('userIds', ourIds);
+
+  window.addEventListener('beforeunload', () => {
+      socket.emit('disconnect');
+  });
 
   function sendMessage(messageID, myidForChat) {
     const mstContent = document.getElementById('mstContent').value;
