@@ -21,6 +21,7 @@ const upload = require('../controlers/uploadcontroler/pandcupload')
 const { uploadpostimage } = require('../controlers/uploadcontroler/postimageuploader')
 const { cheaklogin } = require('../controlers/midlewayer/jwtvalidation')
 const { chatcontroler, sendMessageControler } = require('../controlers/chatcontroler')
+const addnoteControler = require('../controlers/note.controler')
 const postroute = express.Router()
 
 
@@ -51,5 +52,8 @@ postroute.post('/deletefriendreq', cheaklogin, deletereqcontroler)
 postroute.get('/chat/:myidforchat/:friendidforchat', cheaklogin, chatcontroler)
 
 
+
+// extra feature 
+postroute.post('/addnote', addnoteControler)
 
 module.exports=postroute

@@ -11,6 +11,7 @@ const {
 } = require('../controlers/maincontroler')
 const { cheaklogin, stoplogin } = require('../controlers/midlewayer/jwtvalidation')
 const { homecontroler, getsendrequserofmecontroler, getmyallfriendofmecontroler, mychatlistControler, } = require('../controlers/postroutecontroler')
+const mynoteControler = require('../controlers/axios.get')
 const mainrouter = express.Router()
 
 require('dotenv').config()
@@ -41,6 +42,11 @@ mainrouter.get('/logout', (req, res) => {
     res.clearCookie(process.env.COOKI_NAME)
     res.redirect('/login');
 });
+
+
+
+// extra feature
+mainrouter.get('/mynote', mynoteControler)
 
 
 
