@@ -141,16 +141,16 @@
         <%}%>
     </div>
     <div style="display: none;" class="col-12 col-lg-5 mx-2 bg-black" id="addnotes">
-        <div class="py-2 px-5">
+        <div class="py-2 px-lg-5 px-1">
             <div class="py-2">
                 <label class="d-block w-100 p-2 fs-4" for="notetittle">Write your note name</label>
-                <input class="d-block border w-100 p-2 m-2 bg-dark text-light rounded shadow" type="text" name="notetittle" id="notetittle" placeholder="Note name....">
+                <input style="background-color: black;" class="d-block border w-100 p-2 m-2 text-light rounded shadow" type="text" name="notetittle" id="notetittle" placeholder="Note name....">
             </div>
             <div class="py-2">
                 <label class="d-block w-100 p-2 fs-4" for="notetext">Write your text and savge</label>
-                <textarea class="d-block w-100 p-2 m-2 bg-dark text-light rounded shadow" name="notetext" id="notetext" cols="30" rows="10"></textarea>
+                <textarea style="background-color: black;" class="d-block w-100 p-2 m-2 text-light rounded shadow" name="notetext" id="notetext" cols="30" rows="10"></textarea>
             </div>
-            <button class="text-light m-2 d-inline-block py-2 px-4 rounded text-bolder text-center bg-danger" onclick="addnote('<%- myself._id %>')">Save Note</button>
+            <button class="text-light m-2 d-inline-block py-2 px-4 rounded text-bolder text-center" onclick="addnote('<%- myself._id %>')">Save Note</button>
         </div>
     </div>
     <div style="display: none;" class="col-12 col-lg-5 mx-2 bg-black" id="mynote">
@@ -180,13 +180,18 @@
                 const div = document.createElement('div');
                 const h2 = document.createElement('h4');
                 const p = document.createElement('p');
+                const a = document.createElement('a');
 
                 div.setAttribute('class', 'm-4 p-2 rounded bg-dark')
                 h2.setAttribute('class', 'text-bolder border-bottom text-light')
                 p.setAttribute('class', 'text-info py-2')
+                a.setAttribute('class', 'text-success text-decoration-none bg-danger rounded shadow pointer p-2 mx-4')
+                a.setAttribute('onclick', 'deletenote()')
 
                 h2.textContent = response.data[ni][0].noteTittle
                 p.textContent = response.data[ni][0].noteText
+                a.textContent = 'delete'
+                h2.appendChild(a)
                 div.appendChild(h2)
                 div.appendChild(p)
                 divContainer.appendChild(div);
@@ -212,6 +217,11 @@
         mynotee.style.backgroundColor = "rgb(19, 17, 17)"
         feedbtnn.style.backgroundColor = "rgb(19, 17, 17)"
         addnotee.style.backgroundColor = "blue"
+}
+
+
+function deletenote() {
+    alert('hello')
 }
 
 

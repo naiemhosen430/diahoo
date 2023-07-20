@@ -1,13 +1,13 @@
 <%- include('header') %>
-<div style="z-index: 5000;" class="col-12 desnot bg-dark d-lg-none p-2 fixed-top" id="navnotemain">
+<div style="z-index: 5000; background-color: rgb(29, 24, 24);" class="col-12 desnot d-lg-none py-2 fixed-top" id="navnotemain">
     <h2 class="text-light">
         <span class="pointer" onclick="closemanunote()">
             close
         </span>
     </h2>
     <div class="text-center">
-        <a style="text-decoration: none; background-color: rgb(25, 25, 30);" class="d-inline-block py-2 px-4 rounded shadow fs-5 m-4" id="addnotenav" onclick="addnotesfunt()">Add note</a>
-        <a style="text-decoration: none; background-color: rgb(25, 25, 30);" class="d-inline-block py-2 px-4 rounded shadow fs-5 m-4" id="addnotenav" onclick="myfunt('<%- myself._id %>')">My note</a>
+        <a style="text-decoration: none; background-color: rgb(25, 25, 30);" class="d-inline-block py-2 px-4 rounded shadow fs-5 my-4" id="addnotenav" onclick="addnotesfunt()">Add note</a>
+        <a style="text-decoration: none; background-color: rgb(25, 25, 30);" class="d-inline-block py-2 px-4 rounded shadow fs-5 my-4" id="addnotenav" onclick="myfunt('<%- myself._id %>')">My note</a>
     </div>
 </div>
 <section style="overflow: hidden;" class="bg-dark header-animation sticky-top py-2 px-lg-4">
