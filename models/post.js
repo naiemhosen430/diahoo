@@ -11,7 +11,12 @@ const postscheama = new mongoose.Schema({
       picture: {
         "type": "string",
         "required": "false",
-        "default": ""
+        "default": "no image"
+      },
+      video: {
+        "type": "string",
+        "required": "false",
+        "default": "no video"
       },
       postownerid: {
         "type": "string",
@@ -36,6 +41,10 @@ const postscheama = new mongoose.Schema({
         "default": ""
       },
       postedtime: {
+        "type": "String",
+        "errorMessage": "Name must not contain sexual words and be 50 characters or less.",
+      },
+      type: {
         "type": "String",
         "errorMessage": "Name must not contain sexual words and be 50 characters or less.",
       }

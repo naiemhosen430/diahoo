@@ -8,8 +8,49 @@
     </div>
     <div class="py-2 p-animation">
         <input class="d-none" type="file" name="postimageor" onchange="openpostimageupp()" id="postimgup">
-        <img class="w-100" src="" alt="" id="prevewimgpost">
-        <div class="cuspostbox fs-4 text-info bg-dark" onclick="clickpostimginputimage()" id="openpostupimg">Add image</div>
+        <div id="imageinput" class="desnot">
+            <img class="w-100" src="" alt="" id="prevewimgpost">
+            <div class="cuspostbox fs-4 text-info bg-dark" onclick="clickpostimginputimage()" id="openpostupimg">Add image</div>
+        </div>
+        <div id="videoinput" class="desnot">
+            <label class="fs-6 text-light text-bolder" for="videolink">Past youtube video URL/link</label>
+            <input style="border: 0;" class="w-100 px-4 py rounded fs-4 text-light bg-dark" type="text" name="videolink" id="videolink" placeholder="Past youtube video URL/link">
+        </div>
+        <div class="text-bolder" id="postbuttonbox">
+            <a style="text-decoration: none;" class="text-bolder pointer d-inline-block px-2 py-1 text-light fs-6 bg-primary rounded" onclick="showphotobox()">Photo</a>
+            <a style="text-decoration: none;" class="text-bolder pointer d-inline-block px-2 py-1 text-light fs-6 bg-primary rounded" onclick="showvideobox()">Video</a>
+        </div>
     </div>
-    <input class="text-light bg-primary w-100 border rounded py-1 px-4" type="submit" onclick="hidepostelement()" value="Post">
+    <input class="text-light desnot bg-primary w-100 border rounded py-1 px-4" type="submit" id="postsubmit" onclick="hidepostelement()" value="Post">
 </form>
+<input class="text-light desnot bg-primary w-100 border pointer unded py-1 px-4" id="postvideos" onclick="postvideo('<%= myself._id %>'), hidepostelement()" value="Post">
+<a style="border: none;" class="text-light d-block desnot bg-dark text-center w-100 my-4 rounded py-1 px-4" onclick="hidepostelement()">Back</a>
+
+<script>
+    function showphotobox() {
+        imageinput.style.display = 'block'
+        postsubmit.style.display = 'block'
+        postvideo.style.display = 'none'
+        videoinput.style.display = 'none'
+        postbuttonbox.style.display = 'none'
+    }
+    function showvideobox() {
+        imageinput.style.display = 'none'
+        videoinput.style.display = 'block'
+        postvideos.style.display = 'block'
+        postsubmit.style.display = 'none'
+        postbuttonbox.style.display = 'none'
+    }
+
+
+    function postvideo() {
+        const data = {
+            postcontent: postcontent.value,
+            postownerid: postownerid.value,
+            postownername: postownername.value,
+            postownerpicture: postownerpicture.value,
+            video: videolink.value
+        }
+        axios.post('/postvideo', data)
+    }
+</script>

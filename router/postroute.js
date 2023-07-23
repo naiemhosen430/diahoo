@@ -15,7 +15,8 @@ const {
   editprofilepiccontroler, 
   editprofilecontrolerr, 
   resetpasswordControlerPost, 
-  setnewpasswordControler
+  setnewpasswordControler,
+  postvideocontroler
 } = require('../controlers/postroutecontroler')
 const upload = require('../controlers/uploadcontroler/pandcupload')
 const { uploadpostimage } = require('../controlers/uploadcontroler/postimageuploader')
@@ -37,6 +38,7 @@ postroute.post('/cencelfriendreq/:cenmyid/:cenfriendid', cheaklogin, cencelfrien
 postroute.post('/post', cheaklogin, uploadpostimage.fields([
   { name: 'postimageor', maxCount: 10 }
 ]), postcontroler)
+postroute.post('/postvideo', postvideocontroler)
 postroute.post('/editcover/:myidforeditcover', cheaklogin, upload.single('coverphoto'), editcovercontroler)
 postroute.post('/editprofile/:myidforeditprofile', cheaklogin, upload.single('profilebtnin'), editprofilepiccontroler)
 postroute.post('/editprofiletext/:userIdforee', cheaklogin, editprofilecontrolerr)

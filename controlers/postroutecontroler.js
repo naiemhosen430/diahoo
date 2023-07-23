@@ -198,7 +198,7 @@ const postcontroler = async (req,res) => {
         console.log(req.files.postimageor[0].filename || '')
         const currentDate = new Date();
         const year = currentDate.getFullYear();
-        const month = currentDate.getMonth() + 1; // JavaScript months are 0-indexed, so add 1 to get the actual month number
+        const month = currentDate.getMonth() + 1;
         const date = currentDate.getDate();
         const postdate = `${date} ${month} ${year}`
         const picture = req.files.postimageor[0].filename || ''
@@ -216,6 +216,45 @@ const postcontroler = async (req,res) => {
         
     }
 }
+
+
+const postvideocontroler = async (req, res) => {
+    try {
+      const currentDate = new Date();
+      const year = currentDate.getFullYear();
+      const month = currentDate.getMonth() + 1;
+      const date = currentDate.getDate();
+      const postdate = `${date} ${month} ${year}`;
+      
+      const url = req.body.video;
+  
+      const videoId = url.includes('youtu.be/')
+        ? url.split('youtu.be/')[1]
+        : url.split('v=')[1].split('&')[0];
+  
+      // Construct the embedded code
+      const embedCode = `<iframe width="100%" height="100%" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+  
+      const newpostvdo = await postmodel({
+        postcontent: req.body.postcontent,
+        postownerid: req.body.postownerid,
+        postownername: req.body.postownername,
+        postownerpicture: req.body.postownerpicture,
+        postedtime: postdate,
+        type: 'video',
+        video: embedCode,
+      });
+  
+      await newpostvdo.save();
+      console.log(newpostvdo)
+      res.redirect('/');
+    } catch (error) {
+      // Handle any errors that occur during the process
+      console.error(error);
+      res.status(500).json({ error: 'An error occurred while saving the post.' });
+    }
+  };
+
 
 
 const addfriendcontroler = async (req,res) => {
@@ -494,6 +533,7 @@ module.exports={
     resetpasswordControlerPost,
     editprofilepiccontroler,
     registercontrolerpost,
+    postvideocontroler,
     loginpostcontroler,
     editprofilecontrolerr,
     confirmreqcontroler,
